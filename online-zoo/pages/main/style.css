@@ -1,0 +1,171 @@
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+    }
+    *,*:before, *:after{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    }
+    :focus,:active{outline:none;}
+    a:focus, a:active{outline:none;}
+    
+    nav,footer,header,aside{display: block;}
+    
+    html, body{
+    height: 100%;
+    width:100%;
+    font-size:100%;
+    line-height:1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    }
+    input, button, textarea{font-family: inherit;}
+    
+    input:-ms-clear{display: none;}
+    button {cursor: pointer;}
+    button::-moz-focus-inner{padding:0;border:0;}
+    a,a:visited{text-decoration:none;}
+    a:hover{text-decoration: none;}
+    ul li{list-style: none;}
+    img{vertical-align: top;}
+    
+    h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+    
+    /*................................*/
+    
+    @font-face {
+        font-family: 'Roboto-700';
+        src: url(../../assets/fonts/Roboto-Bold.ttf);
+    }
+    @font-face {
+        font-family: 'Roboto-500';
+        src: url(../../assets/fonts/Roboto-Regular.ttf);
+    }
+    @font-face {
+        font-family: 'Roboto-400';
+        src: url(../../assets/fonts/Roboto-Medium.ttf);
+    }
+    @font-face {
+        font-family: 'Roboto-300';
+        src: url(../../assets/fonts/Roboto-Light.ttf);
+    }
+    :root{
+        --btn-color: linear-gradient(to right, #F9804B,#FE9013 ) ;
+        --btn-hover: #E47209;
+        --btn-active: #4B9200;
+        --btn-disabled: #767474;
+        --text: #fffffF ; 
+    }
+    body{
+        
+    }
+@media screen and (min-width: 1600px){
+    header{
+        margin: 0 auto;
+        color: var(--text);
+        font-family: 'Roboto-300';
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 1160px;
+    }
+    
+    
+    #logo{
+        margin: 14px 0;
+        border: 1px solid #FFFFFF;
+        border-radius: 2px;
+        font-size: 19px;
+        line-height: 120%;
+        text-align: center;
+        position: relative;
+        letter-spacing: 0.04em;
+        padding: 2px;
+    }
+    object{
+        position: absolute;
+        top: 18px;
+        left: 10px;
+    }
+    nav{
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+    }
+    nav>ul{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+        width: 470px;
+        margin-top: 30px;
+        margin-right: 380px;
+        font-family: 'Roboto-500';
+        font-size: 16px;
+        line-height: 22px;
+        
+    }
+    #copyright{
+        margin-top: 33px ;
+        font-size: 16px;
+        font-family: 'Roboto-500';
+        position: relative;
+    }}
+.header__wrapper{
+    background-color: black;
+}
+
+.main__block{
+    background-image: url(../../assets/images/Giant\ Panda.png);
+    height:780px;
+    background-size: 100%;
+} 
+.content__frame{
+    margin: 0 auto;
+    width: 1160px;
+    display: flex;
+    justify-content: end;
+}   
+.main__content-wrapper{
+    position:relative;
+    width: 572px;
+}
+.round{
+    margin-top: 12.5px;;
+    background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+    width: 464px;
+    height:464px;
+    border-radius: 50%;
+    align-self: flex-start;
+}
+h2{
+    position: absolute;
+    top: 85px;
+    right:15px;
+    font-family: 'Roboto-700';
+    font-size: 7.5rem;
+    width:472px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 75%;
+    align-self: end;
+    color: var(--text);
+}
+button{
+    background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);;
+}
+.btn-watch{
+    width:298px;
+    height:54px;
+    text-transform: uppercase;
+    margin: 70px 175px;
+    border-radius: 25px;
+    color: var(--text);
+    font-family: 'Robotic-400';
+    font-size: 15px;;
+    
+}
