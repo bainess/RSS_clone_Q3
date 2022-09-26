@@ -123,4 +123,49 @@
     background-image: url(../../assets/images/Giant\ Panda.png);
     height:780px;
     background-size: 100%;
+} 
+.content__frame{
+    margin: 0 auto;
+    width: 1160px;
+    display: flex;
+    justify-content: end;
 }   
+.main__content-wrapper{
+    position:relative;
+    width: 572px;
+}
+.round{
+    margin-top: 12.5px;;
+    background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+    width: 464px;
+    height:464px;
+    border-radius: 50%;
+    align-self: flex-start;
+}
+h2{
+    position: absolute;
+    top: 85px;
+    right:15px;
+    font-family: 'Roboto-700';
+    font-size: 7.5rem;
+    width:472px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 75%;
+    align-self: end;
+    color: var(--text);
+}
+button{
+    background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);;
+}
+.btn-watch{
+    width:298px;
+    height:54px;
+    text-transform: uppercase;
+    margin: 70px 175px;
+    border-radius: 25px;
+    color: var(--text);
+    font-family: 'Robotic-400';
+    font-size: 15px;;
+    
+}
