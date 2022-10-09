@@ -552,7 +552,7 @@ h3{
     display: flex;
     flex-flow: row wrap;
     width: 1160px;
-    gap: 2.5rem 2.2rem;
+    gap: 2.5rem 2rem;
 }
 @media screen and (max-width: 1179.9px) and (min-width:980px){
     .slider__content{
