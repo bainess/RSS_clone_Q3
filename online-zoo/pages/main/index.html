@@ -8,10 +8,15 @@
         <meta content="yes" name="apple-mobile-web-app-capable"/>
        <link rel="stylesheet"  href="./style.css"/>
         <title> Online zoo project  </title>
-<body>
+<body id="body">
     <div class="main__block">
-        <!-- <div class="burger__background">
-            <div class="burger__navigation">
+        <div class="burger__background__dark" id="burger__background__dark">
+            <div class="burger__background__white">
+                <div id="burger__logo">
+                    <h1>PetStory <br> 
+                        online</h1>
+                        <object data="../../assets/icons/bamboo.svg" width="12" height="30"> </object>
+                    </div>
                 <nav class="burger__navigation">
                     <ul>
                         <li><a>About</a></li>
@@ -22,7 +27,7 @@
                     </ul>
                 </nav>
             </div>
-        </div> -->
+        </div>
         <div class="header__wrapper">
             <header>
                 <div class="logo">
@@ -39,10 +44,10 @@
                         <li><a>Contact us</a></li>
                     </ul>
                 </nav>
-            <div class="burger__menu">
-                <div></div>
-                <div></div>
-                <div></div>
+            <div class="burger__menu" id="burger-menu">
+                <div id="burger-bar-top"></div>
+                <div id = 'burger-bar-middle'></div>
+                <div id="burger-bar-bottom"></div>
             </div>
             <p id="copyright">Designed by 	
                 &#169;</p>
@@ -409,4 +414,5 @@
         </div>
     </div>
 </body>
+<script src="./script.js"></script>
 </html>

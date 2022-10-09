@@ -60,8 +60,8 @@
         --btn-disabled: #767474;
         --text: #fffffF ; 
     }
-    body{
-        
+    .body.open{
+        overflow: hidden;
     }
 @media screen and (min-width: 1160px){ 
         header{
@@ -73,6 +73,15 @@
         justify-content: space-between;
         width: 1160px;
     }
+    .burger__navigation{
+        display:none;
+    }
+}
+.burger__navigation{
+    display:none;
+}
+a:hover{
+    color: #E47209;
 }
 @media screen and (max-width: 1179.9px) and (min-width:980px){ 
     header{
@@ -200,12 +209,100 @@ object{
         justify-content: space-between;
         width: 20px;
         height: 10px;
+        animation-duration: 0.3s;
     }
     .burger__menu div{
         width:20px;
         height:1px;
         background-color: white;
         
+    }
+    #burger-bar-top.open{
+        transform: translateY(4px) rotateZ(-45deg);
+        animation-duration: 0.3s;
+    }
+    #burger-bar-middle.open{
+        opacity:0;
+    }
+    #burger-bar-bottom.open{
+        transform: translateY(-6px) rotateZ(45deg);
+        animation-duration: 0.3s;
+    }
+}
+/*make burder menu work will require extra class*/
+@media screen and (max-width: 977px) and (min-width:639px){
+        .burger__background__dark{
+        display:none;
+        transition:all 1s ease;
+
+    }
+    .burger__background__dark.open{
+        display: flex;
+        position: absolute;
+        z-index: 10;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0, 0.5);
+        transform: translateX(100%);
+        
+        
+    }
+    .burger__background__dark.open{
+        transform: translateX(0%);
+        
+    }
+    .burger__background__white{
+        /* position: relative; */
+        display: flex;
+        width: 640px;
+        height: 329px;
+        background-color: white;
+        transition: 1s ease;
+        
+    }
+    #burger__logo{
+        border: 1px solid #FE9013;
+        width: 66px;
+        height:42px;
+        margin: 10px 0 0 20px; 
+    }
+    #burger__logo h1{
+        margin: 1rem;
+        color: #FE9013;
+        margin: 0.5rem auto;
+    }
+    #burger__logo>object{
+        color: #FE9013;
+        width:20px;
+        height: 30px;
+    }
+    .burger__menu{
+        height:20ps;
+        position: absolute;
+        z-index: 12;
+        right: 20px;
+        display: flex;
+        
+    }
+    #body.open{
+        overflow:hidden;
+    }
+    .burger__menu div{
+        height:2px;
+        background-color: #FE9013;
+    }
+    .burger__navigation{
+        width:100px;
+        display: flex;
+        flex-direction: column;
+        margin: 2rem 0 0 -3rem;
+        color: #333B41;
+        
+    }
+    .burger__navigation>ul{
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
     }
 }
 #copyright{
@@ -557,7 +654,7 @@ h3{
 @media screen and (max-width: 1179.9px) and (min-width:980px){
     .slider__content{
         margin: 0 auto;
-        gap: 7.7rem 2rem;
+        gap: 7.7rem 1.8rem;
     }
     .slider__content:nth-child(7),
     .slider__content:nth-child(8) {
