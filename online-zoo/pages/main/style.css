@@ -1378,9 +1378,9 @@ footer{
     .copyright{
         grid-column: 3/4;
         margin-bottom: 0.45rem;
-        margin-left: -1rem;
+        margin-left: -0.6rem;
         letter-spacing: -1px;
-        font-size: 1.1rem;
+        font-size: 1.8rem;
         justify-self:flex-end;
     }
 }
