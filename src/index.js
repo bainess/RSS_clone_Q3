@@ -1,5 +1,5 @@
-'use strict'
-
+"use strict"
+/* 1. add elements*/
 let body = document.getElementsByTagName('body')[0];
 let wrapperMain = document.createElement('div');
 const counterMoves = document.createElement('div');
@@ -62,8 +62,8 @@ function createBoard(){
             gameButton.dataset.madrixId = `${el}`;
             gameButton.innerHTML = `${el}`;
             let plateWidth = boardPlate.offsetWidth;
-            gameButton.style.width = `${plateWidth /boardSize}px`;
-            gameButton.style.height = `${plateWidth /boardSize}px`;
+            gameButton.style.width = `${plateWidth / boardSize}px`;
+            gameButton.style.height = `${plateWidth / boardSize}px`;
             boardPlate.appendChild(gameButton);
             return gameElements;
     });
@@ -120,6 +120,8 @@ createBoardPlate()
 createBoard()
 chooseBoardSize()
 getButtonNodes ()
+/* add position */
+/* create base for matrix */
 function createMatrix(){
     let matrix = [];
     for (let i = 0; i < +boardSize; i++){
@@ -160,47 +162,128 @@ let shuffledArr = shuffleArray();
 matrix = getMatrix(shuffledArr);
     setItemPositions(shuffledArr);
 
-    document.getElementsByClassName("controls")[0].addEventListener('click', function () {
-        shuffledArr = shuffleArray();
-        matrix = getMatrix(shuffledArr);
-        setItemPositions(shuffledArr);
-    })
-    
-    function shuffleArray(){
-        const flatMatrix = matrix.flat();
-        return flatMatrix
-            .map(el => ({el, sort: Math.random()}))
-            .sort((a, b) => a.sort - b.sort)
-            .map(({el}) => el)
-    }
-    /* define position */
+
+
+document.getElementsByClassName("controls")[0].addEventListener('click', function () {
+    shuffledArr = shuffleArray();
+    matrix = getMatrix(shuffledArr);
     setItemPositions(shuffledArr);
-    
-    function setItemPositions(arr) {
-        
-        for (let y = 0; y < matrix.length; y++){
-            for(let x = 0; x < matrix[y].length; x++){
-                let value = matrix[y][x];
-                let button = buttonNodes[value - 1]; 
-                setButtonPostion(button, x, y);
+})
+
+function shuffleArray(){
+    const flatMatrix = matrix.flat();
+    return flatMatrix
+        .map(el => ({el, sort: Math.random()}))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({el}) => el)
+}
+/* define position */
+setItemPositions(shuffledArr);
+
+function setItemPositions(arr) {
+    // matrix = getMatrix(shuffledArr);
+    for (let y = 0; y < matrix.length; y++){
+        for(let x = 0; x < matrix[y].length; x++){
+            let value = matrix[y][x];
+            let button = buttonNodes[value - 1];
+            setButtonPostion(button, x, y);
+        }
+    }
+}
+
+function setButtonPostion(button, x, y) {
+    let plateWidth = boardPlate.offsetWidth;
+    let shiftWidth = plateWidth /boardSize;
+    button.style.transform = `translate3D(${x * shiftWidth}px, ${y * shiftWidth}px, 0)`;
+}
+// sizesBlock.addEventListener('click', setItemPositions);
+sizesBlock.addEventListener('click', function (e) {
+    matrix = getMatrix();
+    shuffledArr = shuffleArray();
+    matrix = getMatrix(shuffledArr);
+    setItemPositions(shuffledArr);
+});
+function hideLastElem (){
+    let buttonNodes = Array.from(document.getElementsByClassName('game-button'));
+    buttonNodes.at(-1).style.display = 'none'
+}
+
+//find blankSquare 
+
+let blankSquare;
+
+function findBlankSquare() {
+    let buttonNodes = Array.from(document.getElementsByClassName('game-button'))
+    blankSquare = Number(buttonNodes.at(-1).dataset.madrixId);
+    return blankSquare;
+} 
+blankSquare = findBlankSquare()
+sizesBlock.addEventListener('click', () => (blankSquare = findBlankSquare()))
+
+
+/* make change position by click */
+boardPlate.addEventListener('click', (event) => {
+    const buttonClicked = event.target.closest('button');
+    if (!buttonClicked) {
+        return;
+    }
+    const buttonNumber = Number(buttonClicked.dataset.madrixId);
+    const buttonXY = findCoordinates(buttonNumber, matrix);
+    const blankSquareXY = findCoordinates(blankSquare, matrix);
+    const checkValidity = checkValidityForSwap (buttonXY, blankSquareXY);
+
+    if (checkValidity) {
+        swapButtons(buttonXY, blankSquareXY, matrix);
+        setItemPositions();
+    }
+})
+
+function findCoordinates(number, matrix) {
+    for (let y = 0; y < matrix.length; y++){
+        for (let x =0; x < matrix[y].length; x++){
+            if (matrix[y][x] === number){
+                return {x, y};
             }
         }
     }
+    return null;
+};
+
+function checkValidityForSwap (location1, location2){
+    const checkX = Math.abs(location1.x - location2.x);
+    const checkY = Math.abs(location1.y - location2.y);
+
+    return (checkX === 1 || checkY === 1) && (location1.x === location2.x || location1.y === location2.y)
+}
+
+const winArr = new Array(boardSize * boardSize).fill(0).map((el, id) => id + 1)
+function isVictory(matrix) {
+    const matrixFlat = matrix.flat();
+    for (let i =0; i < winArr.length; i++){
+        if (matrixFlat[i] !== winArr[i]){
+            return false;
+        }
+    }
+    return true;
+}
+const victoryClass = 'gem-gameWon';
+function addVictoryClass(){
+    setTimeout(() => {
+        boardPlate.classList.add(victoryClass)
     
-    function setButtonPostion(button, x, y) {
-        let plateWidth = boardPlate.offsetWidth;
-        let shiftWidth = plateWidth /boardSize;
-        
-        button.style.transform = `translate3D(${x * shiftWidth}px, ${y * shiftWidth}px, 0)`;
+        setTimeout(()=> {
+            boardPlate.classList.remove(victoryClass)
+        }, 1000);
+    },200)
+}
+
+function swapButtons(location1, location2, matrix){
+    const tempLocation1 = matrix[location1.y][location1.x];
+    matrix[location1.y][location1.x] = matrix[location2.y][location2.x];
+    matrix[location2.y][location2.x] = tempLocation1;
+
+    if (isVictory(matrix)){
+        addVictoryClass();
     }
-    sizesBlock.addEventListener('click', setItemPositions);
-    sizesBlock.addEventListener('click', function (e) {
-        matrix = getMatrix();
-        shuffledArr = shuffleArray();
-        matrix = getMatrix(shuffledArr);
-        setItemPositions(shuffledArr);
-    });
-    function hideLastElem (){
-        let buttonNodes = Array.from(document.getElementsByClassName('game-button'));
-        buttonNodes.at(-1).style.display = 'none'
-    }
+}
+
