@@ -1,0 +1,27 @@
+{
+  "name": "bainess-jsfe2022q3",
+  "version": "1.0.0",
+  "description": "Private repository for @bainess",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/bainess-JSFE2022Q3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/bainess-JSFE2022Q3/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/bainess-JSFE2022Q3#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
