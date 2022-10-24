@@ -120,3 +120,87 @@ createBoardPlate()
 createBoard()
 chooseBoardSize()
 getButtonNodes ()
+function createMatrix(){
+    let matrix = [];
+    for (let i = 0; i < +boardSize; i++){
+        matrix.push([]);
+    }
+    
+    return matrix;
+}
+/* create matrix for boardSize */
+function getMatrix(buttonNodess) {
+    if (!buttonNodess){
+        buttonNodess = Array.from(buttonNodes).map((el) => Number(el.dataset.madrixId));
+    }
+    
+    let matrix = createMatrix();
+    let y = 0;
+    let x = 0;
+
+    for (let i = 0; i < buttonNodess.length; i++){
+        if (x >= boardSize){
+            y++;
+            x = 0;
+        }
+        matrix[y][x] = buttonNodess[i];
+        x++;
+    }
+    return matrix;
+}
+
+
+let matrix = getMatrix();
+hideLastElem ();
+
+
+sizesBlock.addEventListener('click', hideLastElem);
+/*create shuffle */
+let shuffledArr = shuffleArray();
+matrix = getMatrix(shuffledArr);
+    setItemPositions(shuffledArr);
+
+    document.getElementsByClassName("controls")[0].addEventListener('click', function () {
+        shuffledArr = shuffleArray();
+        matrix = getMatrix(shuffledArr);
+        setItemPositions(shuffledArr);
+    })
+    
+    function shuffleArray(){
+        const flatMatrix = matrix.flat();
+        return flatMatrix
+            .map(el => ({el, sort: Math.random()}))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({el}) => el)
+    }
+    /* define position */
+    setItemPositions(shuffledArr);
+    
+    function setItemPositions(arr) {
+        
+        for (let y = 0; y < matrix.length; y++){
+            for(let x = 0; x < matrix[y].length; x++){
+                let value = matrix[y][x];
+                let button = buttonNodes[value - 1]; 
+                setButtonPostion(button, x, y);
+            }
+        }
+    }
+    
+    function setButtonPostion(button, x, y) {
+        let plateWidth = boardPlate.offsetWidth;
+        let shiftWidth = plateWidth /boardSize;
+        
+        button.style.transform = `translate3D(${x * shiftWidth}px, ${y * shiftWidth}px, 0)`;
+    }
+    sizesBlock.addEventListener('click', setItemPositions);
+    sizesBlock.addEventListener('click', function (e) {
+        matrix = getMatrix();
+        shuffledArr = shuffleArray();
+        matrix = getMatrix(shuffledArr);
+        setItemPositions(shuffledArr);
+    });
+    function hideLastElem (){
+        let buttonNodes = Array.from(document.getElementsByClassName('game-button'));
+        buttonNodes.at(-1).style.display = 'none'
+    }
