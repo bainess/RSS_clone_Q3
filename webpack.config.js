@@ -2,9 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack')
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
+    devServer: {
+        port: 9000,
+        hot: true,
+        static: {
+            directory: path.join(__dirname, './dist'),
+        },
+    },
     entry: {
         // style: path.resolve(__dirname, './src/index.css'),
         // main: path.resolve(__dirname, './src/index.js'),
@@ -24,7 +32,9 @@ module.exports = {
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',
-        })
+        }),
+        // применять изменения только при горячей перезагрузке
+        new webpack.HotModuleReplacementPlugin(),
     ],
     module: {
         rules: [
