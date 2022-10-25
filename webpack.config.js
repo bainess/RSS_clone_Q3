@@ -2,10 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack')
+const webpack = require('webpack');
+// const devtool = devMode ? 'source-map' : undefined;
 
 module.exports = {
     mode: 'production',
+    // devtool,
     devServer: {
         port: 9000,
         hot: true,
@@ -52,8 +54,57 @@ module.exports = {
             // Шрифты и SVG
             {
                 test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-                type: 'asset/inline',
-            }
+                type: 'asset/resource'
+            },
+            // аудио
+            {
+                test: /\.(ogg|mp3|wav)$/i,
+                loader: 'file-loader',
+                options: {
+                    filename: '/assets/sounds/[name].[hash:8].[ext]',
+                    // outputPath: (url) => `/assets/sounds/${url}`,
+                },
+            },
+            // {
+            //     test: /\.(jpe?g|png|webp|gif|svg|mp3)$/i,
+            //     use: [
+            //         {
+            //             loader: 'image-webpack-loader',
+            //             options: {
+            //                 mozjpeg: {
+            //                     progressive: true,
+            //                 },
+            //                 optipng: {
+            //                     enabled: false,
+            //                 },
+            //                 pngquant: {
+            //                     quality: [0.65, 0.90],
+            //                     speed: 4
+            //                 },
+            //                 gifsicle: {
+            //                     interlaced: false,
+            //                 },
+            //                 // the webp option will enable WEBP
+            //                 webp: {
+            //                     quality: 75
+            //                 }
+            //             }
+            //         }
+            //     ],
+            //     type: 'asset/resource'
+            // },
+            // {
+            //     test: /\.(png|jpe?g|gif|svg|webp|ico|avif|mp3)$/i,
+            //     type: isDev ? 'asset' : 'asset/resource',
+            //     generator: {
+            //       filename: 'assets/img/[name][hash][ext][query]',
+            //     },
+            //     parser: {
+            //       dataUrlCondition: {
+            //         maxSize: 10 * 1024,
+            //       },
+            //     },
+            //   },
         ],
     },
 }

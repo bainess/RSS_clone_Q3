@@ -1,4 +1,6 @@
 "use strict"
+import mp3 from './assets/sounds/sound.mp3';
+// const mp33 = require('./assets/sounds/sound.mp3');
 /* 1. add elements*/
 let body = document.getElementsByTagName('body')[0];
 let wrapperMain = document.createElement('div');
@@ -9,6 +11,7 @@ let boardPlate = document.createElement('div');
 let sizesBlock = document.createElement('div');
 let move = 0;
 let checkTimer = true;
+
 
 function createMainPlate (){
     wrapperMain.classList.add ('wrapper');
@@ -46,6 +49,11 @@ function countMoves() {
     moves.classList.add('moves-counter');
     moves.innerHTML = '0'
     counterMoves.appendChild(moves);
+
+    document.getElementsByClassName('controls')[0].addEventListener('click', function (e) {
+        move = 0;
+        moves.innerHTML = '0';
+    })
 }
 
 function countTime() {
@@ -72,7 +80,6 @@ function countTime() {
 
     function startTimer() {
         seconds += 1;
-        console.log(seconds);
         if(seconds <= 9) {
             secElem.innerHTML = '0'+seconds;
         };
@@ -100,21 +107,32 @@ function countTime() {
         minutes = 0;
     }
 
-    startTimerButton.addEventListener('click', function (e){
-        resetTimer();
+    function setTimer (){
+        
         checkTimer = true;
         clearInterval(interval);
         interval = setInterval(startTimer, 1000);
-        
-        
-    })
+    };
+    startTimerButton.addEventListener('click', setTimer);
 
-    stopTimerButton.onclick = function() {
+    document.getElementsByClassName("controls")[0].addEventListener('click', function (e){
+        resetTimer();
+        setTimer();
+    });
+
+
+    stopTimerButton.addEventListener('click', function() {
         clearInterval(interval);
         checkTimer = false;
-    }
-
+        if (stopTimerButton.innerHTML === 'Start') {
+            stopTimerButton.innerHTML = 'Stop';
+            setTimer();
+        } else if (stopTimerButton.innerHTML === 'Stop') {
+            stopTimerButton.innerHTML = 'Start'
+        };
+    })
 }
+
 function createBoardPlate() {
     boardPlate.classList.add('board-plate');
     wrapperMain.appendChild(boardPlate);
@@ -235,6 +253,7 @@ document.getElementsByClassName("controls")[0].addEventListener('click', functio
     shuffledArr = shuffleArray();
     matrix = getMatrix(shuffledArr);
     setItemPositions(shuffledArr);
+    
 })
 
 function shuffleArray(){
@@ -304,6 +323,7 @@ boardPlate.addEventListener('click', (event) => {
         setItemPositions();
         move += 1;
         moves.innerHTML = move;
+        playSound()
     }
 })
 
@@ -358,3 +378,10 @@ function swapButtons(location1, location2, matrix){
     }
 }
 
+
+/*add sound effects*/
+function playSound() {
+    const soundEffect = new Audio(mp3);
+    console.log(soundEffect);
+    soundEffect.play()
+}
