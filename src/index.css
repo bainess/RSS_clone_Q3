@@ -62,7 +62,6 @@ h1{
     user-select: none;
 }
 .container-buttons{
-    
     display:flex;
     flex-direction: row;
     justify-content: center ; 
@@ -71,7 +70,7 @@ h1{
 }
 @media screen and (max-width: 768px) and (min-width: 319px) {
     .container-buttons{
-        width:25rem;
+        width:20rem;
     }
 }
 /* @media screen and (max-width: 768px) and (min-width: 319px) {
