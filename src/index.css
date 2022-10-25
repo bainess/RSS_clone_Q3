@@ -41,11 +41,19 @@
     src: url(../src/assets/fonts/FuzzyBubbles-Bold.ttf);
 }
 .wrapper{
-    width: 70vw;
+    width: 60%;
     margin: 3rem auto;
     background-color: #ffd809;
     padding: 1px;
+    padding: 1rem 0 1rem 0;
 } 
+@media screen and (max-width: 768px) and (min-width: 319px) {
+    .wrapper{
+        width: 95vw;
+        margin: 1rem auto;
+        padding: 1rem 0 1rem 0;
+    } 
+}
 h1{
     font-family:  "Fuzzy";
     font-size: 2rem;
@@ -54,12 +62,23 @@ h1{
     user-select: none;
 }
 .container-buttons{
+    
     display:flex;
     flex-direction: row;
     justify-content: center ; 
     margin: 0 auto;
-    width: 30vw;
+    width: 25rem;
 }
+@media screen and (max-width: 768px) and (min-width: 319px) {
+    .container-buttons{
+        width:25rem;
+    }
+}
+/* @media screen and (max-width: 768px) and (min-width: 319px) {
+    .container-buttons{
+        width:95vw;
+    }
+} */
 .controls{
    padding: 0.3rem;
     margin: 0.5rem auto;
@@ -67,6 +86,15 @@ h1{
     background-color: #67ab15;
     border-radius: 5px;
     box-shadow: 0 5px #999;
+}
+@media screen and (max-width: 768px) and (min-width: 319px) {
+    .counters{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        column-gap: 2rem;;
+    }
 }
 .controls:hover{
     background-color:#26802b;
@@ -85,10 +113,11 @@ h1{
 }
 .sizes{
     display: flex;
-    width: 80%;
+    width: 20rem;
     margin: 0 auto;
     justify-content: space-between;
 }
+
 .sizes p:hover{
     font-weight: 700;
     cursor: pointer;
@@ -104,8 +133,12 @@ h1{
     background: #236227;
     margin-bottom: 1.5rem;
     position: relative;
-    
-    
+}
+@media screen and (max-width: 768px) and (min-width: 319px) {
+    .board-plate{
+        width: 300px;
+        height: 300px;
+    } 
 }
 .game-button{
     position: absolute;
