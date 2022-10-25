@@ -115,6 +115,16 @@ h1{
     width: 12vw;
     font-family: serif;
 }
+.moves-counter{
+    margin-left: 5px;
+    padding: 0 3px 0 3px;
+    background:#d1b20e;
+}
+#time-counter{
+    margin-left: 5px;
+    padding: 0 3px 0 3px;
+    background:#d1b20e;
+}
 .sizes{
     display: flex;
     width: 20rem;

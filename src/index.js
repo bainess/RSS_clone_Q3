@@ -8,6 +8,7 @@ let boardSize = 4;
 let boardPlate = document.createElement('div');
 let sizesBlock = document.createElement('div');
 let move = 0;
+let checkTimer = true;
 
 function createMainPlate (){
     wrapperMain.classList.add ('wrapper');
@@ -42,20 +43,77 @@ function createCounterPanel(){
 }
 function countMoves() {
     let moves = document.createElement('div');
-    moves.classList.add('movesCounter');
+    moves.classList.add('moves-counter');
+    moves.innerHTML = '0'
     counterMoves.appendChild(moves);
 }
 
 function countTime() {
     let time = document.createElement('div');
-    time.id = 'timeCounter';
-    counterTime.appendChild(time);
-
-    let checkTimer = false;
-    let startTimer = document.getElementsByClassName('controls')[0];
-    let stopTimer = document.getElementsByClassName('controls')[1];
-
+    time.id = 'time-counter';
     
+    counterTime.appendChild(time);
+    let secElem = document.createElement('span');
+    secElem.id = 'seconds';
+    let minElem = document.createElement('span');
+    minElem.id = 'minutes';
+    time.appendChild(minElem);
+    time.append( ':')
+    time.appendChild(secElem);
+
+    let startTimerButton = document.getElementsByClassName('controls')[0];
+    let stopTimerButton = document.getElementsByClassName('controls')[1];
+    let seconds = 0;
+    let minutes = 0;
+    secElem.innerHTML = seconds;
+    minElem.innerHTML = minutes;
+
+    let interval;
+
+    function startTimer() {
+        seconds += 1;
+        console.log(seconds);
+        if(seconds <= 9) {
+            secElem.innerHTML = '0'+seconds;
+        };
+        if (seconds > 9 && seconds < 59) { 
+            secElem.innerHTML = seconds;
+        };
+        if (seconds > 59) {
+            minutes += 1;
+            minElem.innterHTML = '0' + minutes;
+            seconds = 0;
+            secElem.innterHTML = '0' + 0;
+        };
+        if (minutes > 9) {
+            minElem.innterHTML = min;
+        }
+    }
+
+    function resetTimer(){
+        clearInterval(interval);
+        seconds = '00';
+        minutes = '00';
+        secElem.innerHTML = seconds;
+        minElem.innerHTML = minutes;
+        seconds = 0;
+        minutes = 0;
+    }
+
+    startTimerButton.addEventListener('click', function (e){
+        resetTimer();
+        checkTimer = true;
+        clearInterval(interval);
+        interval = setInterval(startTimer, 1000);
+        
+        
+    })
+
+    stopTimerButton.onclick = function() {
+        clearInterval(interval);
+        checkTimer = false;
+    }
+
 }
 function createBoardPlate() {
     boardPlate.classList.add('board-plate');
@@ -239,8 +297,8 @@ boardPlate.addEventListener('click', (event) => {
     const buttonNumber = Number(buttonClicked.dataset.madrixId);
     const buttonXY = findCoordinates(buttonNumber, matrix);
     const blankSquareXY = findCoordinates(blankSquare, matrix);
-    const checkValidity = checkValidityForSwap (buttonXY, blankSquareXY);
-    const moves = document.getElementsByClassName('movesCounter')[0];
+    const checkValidity = checkValidityForSwap (buttonXY, blankSquareXY, checkTimer);
+    const moves = document.getElementsByClassName('moves-counter')[0];
     if (checkValidity) {
         swapButtons(buttonXY, blankSquareXY, matrix);
         setItemPositions();
@@ -260,11 +318,13 @@ function findCoordinates(number, matrix) {
     return null;
 };
 
-function checkValidityForSwap (location1, location2){
+function checkValidityForSwap (location1, location2, checkTimer){
+    if (checkTimer === true) {
     const checkX = Math.abs(location1.x - location2.x);
     const checkY = Math.abs(location1.y - location2.y);
 
     return (checkX === 1 || checkY === 1) && (location1.x === location2.x || location1.y === location2.y)
+    }
 }
 
 const winArr = new Array(boardSize * boardSize).fill(0).map((el, id) => id + 1)
