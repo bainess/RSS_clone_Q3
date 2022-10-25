@@ -7,7 +7,7 @@ const counterTime = document.createElement('div');
 let boardSize = 4;
 let boardPlate = document.createElement('div');
 let sizesBlock = document.createElement('div');
-
+let move = 0;
 
 function createMainPlate (){
     wrapperMain.classList.add ('wrapper');
@@ -42,11 +42,20 @@ function createCounterPanel(){
 }
 function countMoves() {
     let moves = document.createElement('div');
+    moves.classList.add('movesCounter');
     counterMoves.appendChild(moves);
 }
+
 function countTime() {
     let time = document.createElement('div');
+    time.id = 'timeCounter';
     counterTime.appendChild(time);
+
+    let checkTimer = false;
+    let startTimer = document.getElementsByClassName('controls')[0];
+    let stopTimer = document.getElementsByClassName('controls')[1];
+
+    
 }
 function createBoardPlate() {
     boardPlate.classList.add('board-plate');
@@ -231,10 +240,12 @@ boardPlate.addEventListener('click', (event) => {
     const buttonXY = findCoordinates(buttonNumber, matrix);
     const blankSquareXY = findCoordinates(blankSquare, matrix);
     const checkValidity = checkValidityForSwap (buttonXY, blankSquareXY);
-
+    const moves = document.getElementsByClassName('movesCounter')[0];
     if (checkValidity) {
         swapButtons(buttonXY, blankSquareXY, matrix);
         setItemPositions();
+        move += 1;
+        moves.innerHTML = move;
     }
 })
 

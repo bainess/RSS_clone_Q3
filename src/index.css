@@ -87,6 +87,10 @@ h1{
     border-radius: 5px;
     box-shadow: 0 5px #999;
 }
+.counters div{
+    display: flex;
+        flex-direction: row;
+}
 @media screen and (max-width: 768px) and (min-width: 319px) {
     .counters{
         display: flex;
