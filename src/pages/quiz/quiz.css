@@ -83,7 +83,10 @@ section{
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap:1rem
+  gap:1rem;
+}
+.question-list:first-child().active{
+  background-color: rgb(205, 136, 175);
 }
 .question-type{
   font-family: "Caveat";
@@ -91,7 +94,7 @@ section{
   
   padding: 5px;
 }
-.question-type:hover{
+.question-type.active{
   background-color: rgb(205, 136, 175);
 }
 .question-section{
@@ -152,7 +155,7 @@ section{
   background-color: rgb(170, 170, 57);
   font-family: "Marck";
   font-size: 2.5rem;
-  width: 200px;
+  width: 260px;
   border: 1px solid rgb(85, 85, 0);
   border-radius: 10px;
   box-shadow: 1px 3px 3px rgb(85, 85, 0);
@@ -162,7 +165,7 @@ section{
 }
 @media screen and (max-width: 560px){
   .answer-button{
-    width:200px;
+    width:220px;
     font-size: 2rem;
     margin:1rem;
   }
