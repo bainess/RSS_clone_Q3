@@ -1,0 +1,153 @@
+*{
+  padding: 0;
+  margin: 0;
+  border: 0;
+  }
+  *,*:before, *:after{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  }
+  :focus,:active{outline:none;}
+  a:focus, a:active{outline:none;}
+  
+  nav,footer,header,aside{display: block;}
+  
+  html, body{
+  height: 100%;
+  width:100%;
+  font-size:100%;
+  line-height:1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  }
+  input, button, textarea{font-family: inherit;}
+  
+  input:-ms-clear{display: none;}
+  button {cursor: pointer;}
+  button::-moz-focus-inner{padding:0;border:0;}
+  a,a:visited{text-decoration:none;}
+  a:hover{text-decoration: none;}
+  ul li{list-style: none;}
+  img{vertical-align: top;}
+  
+  h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;
+}
+/*................................*/
+@font-face {
+  font-family: 'GreatVibes';
+  src: url(../../assets/fonts/GreatVibes-Regular.ttf);
+}
+@font-face {
+  font-family: 'Marhey';
+  src: url(../../assets/fonts/Marhey-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: 'Marck';
+  src: url(../../assets/fonts/MarckScript-Regular.ttf);
+}
+body{
+  background: rgb(205,136,175);
+  background: linear-gradient(90deg, rgba(205,136,175,1) 10%, rgba(118,75,142,0.9173890014990371) 67%, rgba(255,255,255,1) 67%, ); 
+}
+.wrapper{
+  width: 60%;
+  height: 100vh;
+  margin: 0 auto;
+  padding:1px;
+  background-color: #764B8E;
+  overflow: hidden;
+  
+}
+header{
+  margin: 2rem  0 0 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+h1{
+  font-family: 'GreatVibes';
+  font-size: 6rem;
+  font-weight: normal;
+}
+nav>ul{
+  display: flex;
+  flex-direction: row;
+  column-gap: 3rem;
+  margin-right: 3rem;
+}
+li{
+  font-family: "Marck";
+  font-size: 2rem;
+  
+}
+li>a{
+  color:rgb(38, 3, 57);
+}
+li>a:hover{
+  color: rgb(255, 255, 170);
+  text-shadow: 
+    0 0 6px rgb(170, 170, 57),
+    0 0 12px rgb(212, 212, 106);
+}
+#burger-menu{
+  display:none;
+}
+main{
+  padding: 1px;
+  width:100%;
+  max-height: 70%;
+}
+#bird-Img{
+  display: block;
+  margin: 0rem auto;
+  width:35%;
+  
+}
+button{
+  display: block;
+  margin: 2rem auto;
+  padding: 5px 15px;
+  font-family: 'Marhey';
+  font-size: 4rem;
+  background-color: rgb(170, 85, 133);
+  border: 1px solid rgb(102, 17, 65);
+  border-radius: 15px;
+  box-shadow: 1px 3px 3px rgb(102, 17, 65);
+}
+button:hover{
+  background-color: rgb(205, 136, 175);
+}
+button:active{
+  transform: translateY(3px);
+}
+a, a:hover, a:active, a:focus {
+  color: rgb(0, 0, 0);
+}
+footer{
+  position: fixed;
+  bottom: 0;
+  margin: 0 auto;
+  left: 50%;
+  transform: translate(-50%, -50%)
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+}
+.elements{
+  /* position: absolute; */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  column-gap: 2rem;
+  justify-content: center;
+  /* left: 45%; */
+}
+#github-img{
+  display: block;
+}
+#rs{
+  height: 45px;
+}
