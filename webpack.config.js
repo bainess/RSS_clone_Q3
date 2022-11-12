@@ -16,8 +16,13 @@ module.exports = {
         },
     },
     entry: {
-        main: [path.resolve(__dirname, './src/pages/main/index.js'), path.resolve(__dirname,'./src/pages/main/index.css')],
-        quizes: [path.resolve(__dirname,'./src/pages/quiz/quiz.css'), path.resolve(__dirname, './src/pages/quiz/quiz.js')]
+        main: [
+            // path.resolve(__dirname, './src/pages/main/index.js'),
+            path.resolve(__dirname,'./src/pages/main/index.css')
+        ],
+        quizes: [
+        // path.resolve(__dirname,'./src/pages/quiz/quiz.css'),
+        path.resolve(__dirname, './src/pages/quiz/quiz.js')]
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -44,6 +49,9 @@ module.exports = {
     // resolve: {
     //   extensions: ['.js', '.jsx', '.ts', '.tsx'],
     // },
+    optimization: {
+        runtimeChunk: 'single'
+    },
     module: {
         rules: [
             // JavaScript

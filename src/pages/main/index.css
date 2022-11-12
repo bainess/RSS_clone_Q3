@@ -88,6 +88,11 @@ h1{
     z-index: 10;
   }
 }
+@media screen and (max-width: 580px) {
+  h1{
+    font-size: 1.5rem;
+  }
+}
 @media screen and (max-width: 1200px) {
   nav{
    /* display: none; */
@@ -114,6 +119,14 @@ h1{
 @media screen and (max-width: 840px) {
   nav.open{
     transform: translate(25%, 200%);
+  }
+}
+@media screen and (max-width: 580px) {
+  nav.open{
+    position: absolute;
+    top: 7vw;
+    left: -40vw;
+    /* transform: translate(-25%, 180%); */
   }
 }
 nav>ul{
@@ -144,9 +157,33 @@ li>a{
 }
 @media screen and (max-width: 840px) {
   li>a{
-   font-size: 4rem;
+  font-size: 4rem;
   }
- }
+}
+@media screen and (max-width: 700px) {
+  ul{
+   margin-top: 0.5rem;
+  }
+  li>a{
+    row-gap: 0rem;
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  li{
+    font-size: 0;;
+  }
+  ul{
+    margin-top: 3.7rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  li>a{
+    margin:0;
+    font-size: 1rem;
+    column-gap: 0rem;
+  }
+}
 li>a:hover{
   color: rgb(255, 255, 170);
   text-shadow: 
@@ -205,6 +242,13 @@ li>a:hover{
   }
   #burger-background{
     transform: translate(-85%, -120%);
+  }
+}
+@media screen and (max-width: 580px) {
+  #burger-background.open{
+    width: 100vw;
+    height: 100vw;
+    transform: translate(-80%, -70%);
   }
 }
 @media screen and (max-width: 1200px) {
