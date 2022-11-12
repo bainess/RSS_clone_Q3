@@ -1,0 +1,134 @@
+*{
+  padding: 0;
+  margin: 0;
+  border: 0;
+  }
+  *,*:before, *:after{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  }
+  :focus,:active{outline:none;}
+  a:focus, a:active{outline:none;}
+  
+  nav,footer,header,aside{display: block;}
+  
+  html, body{
+  height: 100%;
+  width:100%;
+  font-size:100%;
+  line-height:1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  }
+  input, button, textarea{font-family: inherit;}
+  
+  input:-ms-clear{display: none;}
+  button {cursor: pointer;}
+  button::-moz-focus-inner{padding:0;border:0;}
+  a,a:visited{text-decoration:none;}
+  a:hover{text-decoration: none;}
+  ul li{list-style: none;}
+  img{vertical-align: top;}
+  
+  h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+  
+  /*................................*/
+@font-face {
+  font-family: 'GreatVibes';
+  src: url(../../assets/fonts/GreatVibes-Regular.ttf);
+}
+@font-face {
+  font-family: 'Marck';
+  src: url(../../assets/fonts/MarckScript-Regular.ttf);
+}
+body{
+  background: rgb(205,136,175);
+  background: linear-gradient(90deg, rgba(205,136,175,1) 10%, rgba(118,75,142,0.9173890014990371) 67%, rgba(255,255,255,1) 67%, ); 
+}
+.wrapper{
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+  padding:1px;
+  background-color: #764B8E;
+}
+header{
+  margin: 2rem  0 0 0.5rem;
+  font-family: 'GreatVibes';
+  font-size: 6rem;
+  font-weight: normal;
+  
+}
+header>a{
+  color: #000000;
+}
+/* main block */
+main{
+  height: 70%;
+}
+section{
+  background: rgb(170, 85, 133);
+  border: 3px solid rgb(255, 255, 170);
+  border-radius: 15px;
+  padding: 5px;
+
+}
+.question-section{
+  margin: 0 auto;
+  width: 100%;
+  height: 19.5vw;
+  border: 3px solid rgb(255, 255, 170);
+  border-radius: 15px;
+  overflow: hidden;
+}
+#question-button{
+  margin:-3px;
+  width: 30%;
+  height:102.5%;
+  border-radius: 15px;
+  border: 5px solid rgb(255, 255, 170);
+  /* overflow: hidden; */
+}
+#secret-bird{
+  display: block;
+  width: 100%;
+}
+#buttons-block{
+  margin: 1rem 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  
+}
+.answer-button{
+  background-color: rgb(170, 170, 57);
+  font-family: "Marck";
+  font-size: 2.5rem;
+  width: 200px;
+  border: 1px solid rgb(85, 85, 0);
+  border-radius: 10px;
+  box-shadow: 1px 3px 3px rgb(85, 85, 0);
+  color: rgb(38, 3, 57);
+  display: flex;
+  justify-content: center;
+}
+.answer-button:hover{
+  background-color: rgb(212, 212, 106);
+}
+.answer-button:active{
+  transform: translateY(3px);
+  background-color: rgb(212, 212, 106);
+}
+.round{
+  width: 13px;
+  height:13px;
+  border-radius: 50%;
+  border: 3px solid rgb(118, 75, 142);
+  align-self: center;
+  margin: 10px;
+  background-color: rgb(151, 117, 170);
+}

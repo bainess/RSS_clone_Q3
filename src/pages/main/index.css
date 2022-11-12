@@ -61,6 +61,7 @@ body{
   overflow: hidden;
   
 }
+
 header{
   margin: 2rem  0 0 0.5rem;
   display: flex;
@@ -88,9 +89,19 @@ h1{
     z-index: 10;
   }
 }
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 700px) {
   h1{
-    font-size: 1.5rem;
+    margin-top:-7vw;
+  }
+}
+@media screen and (max-width: 700px) {
+  h1>a{
+    font-size: 3rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  h1>a{
+    font-size: 2rem;
   }
 }
 @media screen and (max-width: 1200px) {
@@ -124,7 +135,7 @@ h1{
 @media screen and (max-width: 580px) {
   nav.open{
     position: absolute;
-    top: 7vw;
+    top: 9vw;
     left: -40vw;
     /* transform: translate(-25%, 180%); */
   }
@@ -142,6 +153,11 @@ nav>ul{
     margin-right: 5rem;
   }
 }
+@media screen and (max-width: 540px){
+  nav>ul{
+    margin-top:6vw;
+  }
+}
 li{
   font-family: "Marck";
   font-size: 2rem;
@@ -150,6 +166,11 @@ li{
 @media screen and (max-width: 1200px) {
   li{
     font-size: 3rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  li{
+    font-size: 0rem;
   }
 }
 .nav-item{
@@ -169,12 +190,33 @@ li{
     font-size: 2rem;
   }
 }
-@media screen and (max-width: 450px) {
-  li{
-    font-size: 0;;
+@media screen and (max-width: 540px) {
+  nav>ul{
+    margin-top: 2vw;
+  }
+  li>a{
+    font-size: 2rem;
+    margin:0;
+    padding:0;
+    gap:0;
   }
   ul{
     margin-top: 3.7rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  nav>ul{
+    margin:2.2rem 0 0 0;
+  }
+}
+/* @media screen and (max-width: 500px) {
+  /* nav{
+    margin-top: -15vw;
+  } 
+} */
+@media screen and (max-width: 500px) {
+  nav.open{
+    margin-top: -13rem;
   }
 }
 .nav-item{
@@ -182,9 +224,8 @@ li{
 }
 @media screen and (max-width: 450px) {
   li>a{
-    margin:0;
     font-size: 1rem;
-    column-gap: 0rem;
+    /* column-gap: 0rem; */
   }
 }
 li>a:hover{
@@ -206,19 +247,22 @@ li>a:hover{
 }
 @media screen and (max-width: 1200px) {
   #burger-menu{
-    position: relative;
-    margin: 0.2rem 1.8rem;
+    display: block;
+    position: absolute;
+    right:2vw;
+    top:1vw;
+    /* margin: 0.2rem 1.8rem; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 30px;
-    width: 30px;
+    width: 30px; 
   }
 }
 @media screen and (max-width: 840px) {
   #burger-menu{
     position: absolute;
-    right: 0px;
+    right: 20px;
   }
 }
 @media screen and (max-width: 1200px) {
@@ -252,6 +296,11 @@ li>a:hover{
     width: 100vw;
     height: 100vw;
     transform: translate(-80%, -70%);
+  }
+}
+@media screen and (max-width: 450px) {
+  #burger-background.open{
+    /* transform: translate(30%, -60%); */
   }
 }
 @media screen and (max-width: 1200px) {

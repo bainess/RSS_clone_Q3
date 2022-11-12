@@ -21,8 +21,9 @@ module.exports = {
             path.resolve(__dirname,'./src/pages/main/index.css')
         ],
         quizes: [
-        // path.resolve(__dirname,'./src/pages/quiz/quiz.css'),
-        path.resolve(__dirname, './src/pages/quiz/quiz.js')]
+        path.resolve(__dirname,'./src/pages/quiz/quiz.css'),
+        // path.resolve(__dirname, './src/pages/quiz/quiz.js')
+    ]
     },
     output: {
         path: path.resolve(__dirname, './dist'),
