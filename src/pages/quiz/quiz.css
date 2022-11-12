@@ -35,6 +35,12 @@
   
   h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
   
+  /* input, textarea, select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  } */
+
+
   /*................................*/
 @font-face {
   font-family: 'GreatVibes';
@@ -48,12 +54,16 @@ body{
   background: rgb(205,136,175);
   background: linear-gradient(90deg, rgba(205,136,175,1) 10%, rgba(118,75,142,0.9173890014990371) 67%, rgba(255,255,255,1) 67%, ); 
 }
-.wrapper{
+.wrapper__quiz{
   width: 60%;
-  height: 100%;
   margin: 0 auto;
   padding:1px;
   background-color: #764B8E;
+}
+@media screen and (max-width: 770px){
+  .wrapper__quiz{
+    width:90vw;
+  }
 }
 header{
   margin: 2rem  0 0 0.5rem;
@@ -64,6 +74,11 @@ header{
 }
 header>a{
   color: #000000;
+}
+@media screen and (max-width: 390px){
+  #header__quiz>a{
+    font-size: 4rem;
+  }
 }
 /* main block */
 main{
@@ -84,6 +99,11 @@ section{
   border-radius: 15px;
   overflow: hidden;
 }
+@media screen and (max-width: 770px){
+  .question-section{
+    height:30vw;
+  }
+}
 #question-button{
   margin:-3px;
   width: 30%;
@@ -92,17 +112,38 @@ section{
   border: 5px solid rgb(255, 255, 170);
   /* overflow: hidden; */
 }
+@media screen and (max-width: 770px){
+  #question-button{
+    height: 30vw;
+  }
+}
 #secret-bird{
   display: block;
   width: 100%;
 }
+@media screen and (max-width: 770px){
+  #secret-bird{
+    height:30;
+  }
+}
 #buttons-block{
-  margin: 1rem 2rem;
+  margin: 1rem auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 1rem;
-  
+  gap: 1rem 8rem;
+}
+@media screen and (max-width: 1407px){
+  #buttons-block{
+    column-gap: 3rem;
+  }
+}
+@media screen and (max-width: 560px){
+  #buttons-block{
+    gap: 0rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 .answer-button{
   background-color: rgb(170, 170, 57);
@@ -115,6 +156,13 @@ section{
   color: rgb(38, 3, 57);
   display: flex;
   justify-content: center;
+}
+@media screen and (max-width: 560px){
+  .answer-button{
+    width:200px;
+    font-size: 2rem;
+    margin:1rem;
+  }
 }
 .answer-button:hover{
   background-color: rgb(212, 212, 106);
@@ -131,4 +179,17 @@ section{
   align-self: center;
   margin: 10px;
   background-color: rgb(151, 117, 170);
+}
+#next-level-btn{
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  font-family: "Marhey";
+  padding: 10px 45px;
+}
+@media screen and (max-width: 740px){
+  #next-level-btn{
+    font-size: 1.5rem;
+    margin: 2.5rem auto;
+  }
+  
 }
