@@ -67,10 +67,54 @@ header{
   flex-direction: row;
   justify-content: space-between;
 }
+@media screen and (max-width: 1200px) {
+  header{
+    position: relative;
+  }
+}
 h1{
   font-family: 'GreatVibes';
   font-size: 6rem;
   font-weight: normal;
+}
+@media screen and (max-width: 960px) {
+  h1{
+    font-size: 3rem;
+  }
+}
+@media screen and (max-width: 840px) {
+  h1{
+    position: absolute;
+    z-index: 10;
+  }
+}
+@media screen and (max-width: 1200px) {
+  nav{
+   /* display: none; */
+  position: absolute;
+  top: 5rem;
+  right: -30px;
+  z-index: 10;
+  transform: translateX(145%);
+  transition: all 0.3s ease-in-out;
+  }
+  nav.open{
+    display: block;
+    transform: translateX(0%);
+  }
+}
+@media screen and (max-width: 840px) {
+  nav{
+    margin: -18rem 13rem; 
+  }
+  nav>ul{
+    row-gap: 2rem;
+  }
+}
+@media screen and (max-width: 840px) {
+  nav.open{
+    transform: translate(25%, 200%);
+  }
 }
 nav>ul{
   display: flex;
@@ -78,33 +122,138 @@ nav>ul{
   column-gap: 3rem;
   margin-right: 3rem;
 }
+@media screen and (max-width: 1200px) {
+  nav>ul{
+    flex-direction: column;
+    row-gap: 1.5rem;
+    margin-right: 5rem;
+  }
+}
 li{
   font-family: "Marck";
   font-size: 2rem;
   
 }
+@media screen and (max-width: 1200px) {
+  li{
+    font-size: 3rem;
+  }
+}
 li>a{
   color:rgb(38, 3, 57);
 }
+@media screen and (max-width: 840px) {
+  li>a{
+   font-size: 4rem;
+  }
+ }
 li>a:hover{
   color: rgb(255, 255, 170);
   text-shadow: 
     0 0 6px rgb(170, 170, 57),
     0 0 12px rgb(212, 212, 106);
 }
+@media screen and (max-width: 840px) {
+  li>a:hover{
+    color: rgb(118, 75, 142);
+    text-shadow: 
+      0 0 6px rgb(118, 75, 142),
+      0 0 12px rgb(151, 117, 170);
+  }
+}
 #burger-menu{
   display:none;
 }
+@media screen and (max-width: 1200px) {
+  #burger-menu{
+    position: relative;
+    margin: 0.2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30px;
+    width: 30px;
+  }
+}
+@media screen and (max-width: 840px) {
+  #burger-menu{
+    position: absolute;
+    right: 0px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  #burger-background{
+    position:absolute;
+    z-index: 0;
+    width: 70vw;
+    height: 70vw;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 170);
+    transform: translate(60%, -85%);
+    transition: 0.3s ease-in-out;
+  }
+}
+@media screen and (max-width: 1200px) {
+  #burger-background.open{
+    transform: translate(-25%, -45%);
+    
+  }
+}
+@media screen and (max-width: 840px) {
+  #burger-background.open{
+    transform: translate(-85%, -50%);
+  }
+  #burger-background{
+    transform: translate(-85%, -120%);
+  }
+}
+@media screen and (max-width: 1200px) {
+  .burger-lines{
+    z-index: 10;
+    width: 30px;
+    height: 3px;
+    border-radius: 10%;
+    background-color: rgb(151, 117, 170);
+    transition: 0.3s ease;
+  }
+  .burger-lines:nth-child(2).open{
+    transform: translateY(10px) rotate(-45deg);
+  }
+  .burger-lines:nth-child(3).open{
+    display: none;
+  }
+  .burger-lines:last-child.open{
+    transform: translateY(-15px) rotate(45deg);
+  }
+}
+
 main{
   padding: 1px;
   width:100%;
   max-height: 70%;
+}
+@media screen and (max-width: 960px) {
+  main{
+    margin-top: 2rem;
+  }
 }
 #bird-Img{
   display: block;
   margin: 0rem auto;
   width:35%;
   
+}
+@media screen and (max-width: 1200px) {
+  #bird-Img{
+    margin: 3rem auto;
+    width: 70%;
+  }
+}
+@media screen and (max-width: 600px) {
+  #bird-Img{
+    margin: 5rem auto 1rem;
+    width: 70%;
+  }
 }
 button{
   display: block;
@@ -116,6 +265,18 @@ button{
   border: 1px solid rgb(102, 17, 65);
   border-radius: 15px;
   box-shadow: 1px 3px 3px rgb(102, 17, 65);
+}
+@media screen and (max-width: 960px) {
+  button{
+    font-size: 2rem;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 560px) {
+  button{
+    font-size: 1rem;
+    margin: 3rem auto;
+  }
 }
 button:hover{
   background-color: rgb(205, 136, 175);
@@ -145,9 +306,25 @@ footer{
   justify-content: center;
   /* left: 45%; */
 }
+@media screen and (max-width: 560px) {
+  .elements{
+    height: 30px;
+    /* left: 30%; */
+  }
+}
 #github-img{
   display: block;
 }
+@media screen and (max-width: 560px) {
+  #github-img{
+    height: 30px;
+  }
+}
 #rs{
   height: 45px;
+}
+@media screen and (max-width: 560px) {
+  #rs{
+    height: 30px;
+  }
 }
