@@ -57,7 +57,7 @@ body{
   height: 100vh;
   margin: 0 auto;
   padding:1px;
-  background-color: #764B8E;
+  background-color: rgb(118, 75, 142);
   overflow: hidden;
   
 }
@@ -152,8 +152,8 @@ li{
     font-size: 3rem;
   }
 }
-li>a{
-  color:rgb(38, 3, 57);
+.nav-item{
+  color:rgb(170, 170, 57);
 }
 @media screen and (max-width: 840px) {
   li>a{
@@ -177,6 +177,9 @@ li>a{
     margin-top: 3.7rem;
   }
 }
+.nav-item{
+  color:black;
+}
 @media screen and (max-width: 450px) {
   li>a{
     margin:0;
@@ -190,14 +193,14 @@ li>a:hover{
     0 0 6px rgb(170, 170, 57),
     0 0 12px rgb(212, 212, 106);
 }
-@media screen and (max-width: 840px) {
+/* @media screen and (max-width: 840px) {
   li>a:hover{
     color: rgb(118, 75, 142);
     text-shadow: 
       0 0 6px rgb(118, 75, 142),
       0 0 12px rgb(151, 117, 170);
   }
-}
+} */
 #burger-menu{
   display:none;
 }
