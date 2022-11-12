@@ -10,36 +10,49 @@
         <title>   </title>
 <body>
   <div class="wrapper__quiz">
-    <header id='header__quiz'><a href="./index.html">SongBird</a></header>
-  <main>
-    <section>
-      <div class="question-section">
-        <button id="question-button">
-          <img id='secret-bird' src="../../assets/svg/1295782.svg" alt="">
-        </button>
-        <div class="audio-player"></div>
-        <div id="equalizer"></div>
-      </div>
-      <div id="buttons-block">
-        <button class="answer-button">
-          <div class="round"></div>
-          Соловей</button>
-        <button class="answer-button">
-          <div class="round"></div>
-          Журавль</button>
-        <button class="answer-button">
-          <div class="round"></div>
-          Text</button>
-        <button class="answer-button">
-          <div class="round"></div>
-          Text</button>
-        <button class="answer-button">
-          <div class="round"></div>
-          Text</button>
-        <button class="answer-button">
-          <div class="round"></div>
-          Text</button>
-      </div>
+    <header class='header__quiz'>
+        <a class='logo' href="./index.html">SongBird</a>
+        <div class="score-display">
+          <p>Score: <p id="score-counter"></p></p>
+        </div>
+    </header>
+    <main>
+      <section class="question-list">
+        <p class="question-type">Разминка</p>
+        <p class="question-type">Воробьиные</p>
+        <p class="question-type">Лесные птицы</p>
+        <p class="question-type">Певчие птицы</p>
+        <p class="question-type">Хищные птицы</p>
+        <p class="question-type">Морские птицы</p>
+      </section>
+      <section>
+        <div class="question-section">
+          <button id="question-button">
+            <img id='secret-bird' src="../../assets/svg/1295782.svg" alt="">
+          </button>
+          <div class="audio-player"></div>
+          <div id="equalizer"></div>
+        </div>
+        <div id="buttons-block">
+          <button class="answer-button">
+            <div class="round"></div>
+            Соловей</button>
+          <button class="answer-button">
+            <div class="round"></div>
+            Журавль</button>
+          <button class="answer-button">
+            <div class="round"></div>
+            Text</button>
+          <button class="answer-button">
+            <div class="round"></div>
+            Text</button>
+          <button class="answer-button">
+            <div class="round"></div>
+            Text</button>
+          <button class="answer-button">
+            <div class="round"></div>
+            Text</button>
+        </div>
     </section>
     <button id="next-level-btn">Next Level</button>
   </main>
