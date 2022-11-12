@@ -9,35 +9,41 @@ module.exports = {
     mode: 'development',
     // devtool,
     devServer: {
-        port: 9000,
+        port: 8080,
         hot: true,
         static: {
-            directory: path.join(__dirname, './dist'),
+            directory: path.join(__dirname, 'dist'),
         },
     },
     entry: {
-        // style: path.resolve(__dirname, './src/index.css'),
-        // main: path.resolve(__dirname, './src/index.js'),
-        main: ['./src/index.js', './src/index.css'],
+        main: [path.resolve(__dirname, './src/pages/main/index.js'), path.resolve(__dirname,'./src/pages/main/index.css')],
+        quizes: [path.resolve(__dirname,'./src/pages/quiz/quiz.css'), path.resolve(__dirname, './src/pages/quiz/quiz.js')]
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: '[name].bundle.js',
+        filename: 'components/[name].bundle.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'webpack Boilerplate',
-            template: path.resolve(__dirname, './src/index.html'), // шаблон
+            template: path.resolve(__dirname, './src/pages/main/index.html'), // шаблон
             filename: 'index.html', // название выходного файла,
             
         }),
+        new HtmlWebpackPlugin({
+          template: path.resolve(__dirname, './src/pages/quiz/quiz.html'),
+          filename: 'quiz.html'
+        }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: 'styles/[name].bundle.css',
         }),
         // применять изменения только при горячей перезагрузке
         new webpack.HotModuleReplacementPlugin(),
     ],
+    // resolve: {
+    //   extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    // },
     module: {
         rules: [
             // JavaScript
@@ -46,11 +52,27 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['babel-loader'],
             },
+            {
+              test: /\.html$/,
+              use: [{
+                loader: 'html-loader',
+                options: {
+                  minimize: true
+                }
+              }],
+            },
             // CSS
             {
                 test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
+            // {
+            //     test: /\.css$/,
+            //     use: [
+            //       'style-loader',
+            //       'css-loader'
+            //     ]
+            // },
             // Шрифты и SVG
             {
                 test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
