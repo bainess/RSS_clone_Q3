@@ -21,7 +21,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'components/[name].bundle.js',
+        filename: '[name].js',
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -36,7 +36,7 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'styles/[name].bundle.css',
+            filename: '[name].css',
         }),
         // применять изменения только при горячей перезагрузке
         new webpack.HotModuleReplacementPlugin(),
