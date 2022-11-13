@@ -375,10 +375,10 @@ button{
     margin: 3rem auto;
   }
 }
-button:hover{
+.play-game__button:hover{
   background-color: rgb(205, 136, 175);
 }
-button:active{
+.play-game__button:active{
   transform: translateY(3px);
 }
 a, a:hover, a:active, a:focus {

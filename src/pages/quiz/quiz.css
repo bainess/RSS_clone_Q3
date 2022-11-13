@@ -357,8 +357,11 @@ input::-webkit-slider-thumb{
   }
 }
 
-.answer-button:active{
+.answer-button.active{
   transform: translateY(3px);
+  background-color: rgb(212, 212, 106);
+}
+.answer-button:hover{
   background-color: rgb(212, 212, 106);
 }
 .round{
@@ -369,6 +372,14 @@ input::-webkit-slider-thumb{
   align-self: center;
   margin: 10px;
   background-color: rgb(151, 117, 170);
+}
+.round.right{
+  background-color: rgb(165, 198, 99);
+  border: 3px solid rgb(86, 119, 20)
+}
+.round.wrong{
+  background-color: rgb(170, 85, 133);
+  border: 3px solid rgb(102, 17, 65);
 }
 #next-level-btn{
   margin-top: 4rem;

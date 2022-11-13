@@ -308,89 +308,126 @@ const birdsData = [
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
-let questionPool = 1;
-
+// let questionPool = 1;
+let currQuesPoolNum = '';
+let currQues;
 function fillAnswerButtonsWithOptions(){
-  let answerButtonsArray = Array.from(document.getElementsByClassName('answer-option'));
-  for (let i = 0; i <= answerButtonsArray.length-1;i++){
-    for(let j= 0; j <= birdsData.length-1; j +=1){
-      questionPool = [i];
-      let currentBirdArray = birdsData[i][j];
-      let birdName = currentBirdArray.name;
-      answerButtonsArray[i].textContent = birdName;
-      }
-    }
+  const answerButtonsArray = Array.from(document.getElementsByClassName('answer-option'));
+  const questionTypes = Array.from(document.getElementsByClassName('question-type'));
+  
+  questionTypes.forEach((el, i) => {
+    if (el.classList.contains('active')){
+      currQuesPoolNum = i;
+    };
+  })
+
+  for (let i = 0; i <= birdsData[currQuesPoolNum].length-1; i++){
+    answerButtonsArray[i].textContent = birdsData[currQuesPoolNum][i].name;
+  }
 }
+fillAnswerButtonsWithOptions();
+
+function getQuestion (){
+  let currentBirdArray = birdsData[currQuesPoolNum];
+  let randomQuestion = randomIntFromInterval(0, 5);
+  console.log(currentBirdArray[randomQuestion])
+  return currQues = currentBirdArray[randomQuestion];
+}
+getQuestion ()
+  
+  // for (let i = 0; i <= answerButtonsArray.length-1;i++){
+  //   for(let j= 0; j <= birdsData.length-1; j +=1){
+  //     questionPool = [i];
+  //     let currentBirdArray = birdsData[i][j];
+  //     let birdName = currentBirdArray.name;
+  //     answerButtonsArray[i].textContent = birdName;
+  //     }
+  //   }
+
 let currentQuestion = 0;
 
 
-function getQuestion (){
-  let currentBirdArray = birdsData[questionPool];
-  let randomQuestion = randomIntFromInterval(0, 5);
-  currentQuestion = randomQuestion;
-  return currentBirdArray[randomQuestion].audio;
+
+  // player settings
+  let soundSource = currQues.audio;
+  let sound = new Audio(soundSource);
+  let muted = false;
+  let volume = 1;
+  sound.type='audio/mpeg';
+
+  function playPause() {
+    if (!sound.paused) {
+      sound.pause()
+    } else {
+      sound.play()
+    }
+  }
+
+  let playButton = document.getElementsByClassName('play-btn')[0];
+  playButton.addEventListener('click', () => {playPause(), toggleClass()});
+
+  function setPosition (position){
+    sound.currentTime = position;
+  }
+
+  function mute() {
+    if (muted) {
+      sound.volume = volume;
+      muted = false;
+    } else {
+      sound.volume = 0;
+      muted = true;
+    }
+  }
+  mute();
+  function setVolume(vol) {
+    sound.volume = vol;
+    volume = vol;
+  }
+  setVolume(volume);
+
+  sound.addEventListener('timeupdate', function() {
+    let currTime = parseInt(sound.currentTime, 10);
+    console.log(currTime)
+    document.getElementById('seek-line').max = sound.duration;
+    document.getElementById('seek-line').value = currTime;
+  } )
+
+  let listToggle = 0;
+  const classes = [ 'pause', 'play'];
+
+  let toggleClass = () => {
+    const playIcon = document.getElementById('play-icon');
+    playIcon.classList = classes[listToggle++ % classes.length];
+  }
+
+  // work with game
+  let rightAnswer = false;
+  function getRightAnswer (currQuesPoolNum, currQues) {
+    const answerOptions = Array.from(document.getElementsByClassName('answer-button'));
+      let flag = false;
+      function colorIndicator(e) {
+        if(!flag) {
+          e.target.closest('button').classList.add('active')
+          let answerIndicatior = e.target.closest('button').getElementsByClassName('round')[0];
+          if(e.target.closest('button').id == currQues.id){
+            rightAnswer = true;
+            answerOptions.forEach((el) => {el.disabled = true})
+            answerIndicatior.classList.add('right');
+            flag = true;
+          } else {
+            console.log('wrong', currQues.name);
+            answerIndicatior.classList.add('wrong');
+          }
+        }
+      }
+      document.getElementById("buttons-block").addEventListener('click', colorIndicator);
+    // document.getElementById("buttons-block").removeEventListener('click', colorIndicator)
+  }
   
-}
-// player settings
-let soundSource = getQuestion ();
-let sound = new Audio(soundSource);
-let muted = false;
-let volume = 1;
-sound.type='audio/mpeg';
+  getRightAnswer (currQuesPoolNum, currQues)
+  // start functions
 
-function playPause() {
-  if (!sound.paused) {
-    sound.pause()
-  } else {
-    sound.play()
-  }
-}
-
-let playButton = document.getElementsByClassName('play-btn')[0];
-playButton.addEventListener('click', () => {playPause(), toggleClass()});
-
-function setPosition (position){
-  sound.currentTime = position;
-}
-
-function mute() {
-  if (muted) {
-    sound.volume = volume;
-    muted = false;
-  } else {
-    sound.volume = 0;
-    muted = true;
-  }
-}
-mute();
-function setVolume(vol) {
-  sound.volume = vol;
-  volume = vol;
-}
-setVolume(volume);
-
-sound.addEventListener('timeupdate', function() {
-  let currTime = parseInt(sound.currentTime, 10);
-  console.log(currTime)
-  document.getElementById('seek-line').max = sound.duration;
-  document.getElementById('seek-line').value = currTime;
-} )
-
-let listToggle = 0;
-const classes = [ 'pause', 'play'];
-
-let toggleClass = () => {
-  const playIcon = document.getElementById('play-icon');
-  playIcon.classList = classes[listToggle++ % classes.length];
-}
-
-// work with game
-function getRightAnswer () {
-
-}
-
-// start functions
-fillAnswerButtonsWithOptions();
 
 
 // getQuestion (questionPool);
