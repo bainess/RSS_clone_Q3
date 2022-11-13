@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta content="true" name="HandheldFriendly">
+        <meta content="width" name="MobileOptimizer"/>
+        <meta content="yes" name="apple-mobile-web-app-capable"/>
+       <link rel="stylesheet"  href="./quiz.css"/>
+        <title>   </title>
+<body>
+  <div class="wrapper__quiz">
+    <header class='header__quiz'>
+        <a class='logo' href="./index.html">SongBird</a>
+        <div class="score-display">
+          <p>Score: <p id="score-counter"></p></p>
+        </div>
+    </header>
+    <main>
+      <section class="question-list">
+        <p class="question-type">Разминка</p>
+        <p class="question-type">Воробьиные</p>
+        <p class="question-type">Лесные птицы</p>
+        <p class="question-type">Певчие птицы</p>
+        <p class="question-type">Хищные птицы</p>
+        <p class="question-type">Морские птицы</p>
+      </section>
+      <section>
+        <div class="question-section">
+          <button id="bird-button">
+            <img id='secret-bird' src="../../assets/svg/1295782.svg" alt="">
+          </button>
+          <div class="audio-player__container">
+            <div class="play-control">
+              <button class="play-btn">
+                <div id="play-icon" class="play"></div>
+              </button>
+            </div>
+            <div id="playbar">
+              <input type="range" oninput="setPosition(this.value)" id="seek-line" value="0" max="">
+            </div>
+            <div class="volume-controls">
+              <button id="mute" class="play-btn" onclick="mute()">
+                <a href="#" class="mute-icon">
+                  <span></span>
+              </button>
+              <input type="range" id="volume" oninput="setVolume(this.value)" man="0" max="1" step ="0.01">
+            </div>
+          </div>
+        </div>
+        <div id="buttons-block">
+          <button type="submit" class="answer-button" id="1">
+            <div class="round"></div>
+            <p class='answer-option'></p>
+          </button>
+          <button type="submit" class="answer-button" id="2">
+            <div class="round"></div>
+            <p class='answer-option'></p>
+          </button>
+          <button type="submit" class="answer-button" id="3">
+            <div class="round"></div>
+            <p class='answer-option'></p>
+          </button>
+          <button type="submit" class="answer-button" id="4">
+            <div class="round"></div>
+            <p class='answer-option'></p>
+          </button>
+          <button type="submit" class="answer-button" id="5">
+            <div class="round"></div>
+            <p class='answer-option'></p>
+          </button>
+          <button type="submit" class="answer-button" id="6">
+            <div class="round"></div>
+            <p class='answer-option'></p>
+          </button>
+        </div>
+    </section>
+    <section class="info-block">
+      <img class="screensaver " src="../../assets/svg/question_mark.svg" alt="question mark">
+      <div info-section>
+        <div class="bird-names">
+          <h2 class="main-name">***</h2>
+          <h3 class="latin-name">***</h3>
+        </div>
+        <div id='small-player' class="audio-player__container small hidden"><div class="play-control">
+          <button class="play-btn">
+            <div id="play-icon" class="play"></div>
+          </button>
+        </div>
+        <div id="playbar">
+          <input type="range" class='seekline' oninput="setPosition(this.value)" id="seek-line" value="0" max="">
+        </div>
+        <div class="volume-controls small">
+          <button id="mute" class="play-btn " onclick="mute()">
+            <a href="" class="mute-icon">
+              <span></span>
+          </button>
+          <input type="range" class='volume' id="volume" oninput="setVolume(this.value)" man="0" max="1" step ="0.01">
+        </div></div>
+        <article >
+          <p class="bird-info ">***
+          </p>
+        </article>
+      </div>
+      </section>
+    <button id="next-level-btn">Next Level</button>
+  </main>
+  <!-- <footer>
+    <div class="elements">
+      <div cla>
+        <a  href="https://github.com/bainess"><img id='github-img' height='45px' src="../../assets/svg/Octocat.png"></a>
+      </div>
+      <p>2022</p>
+      <a href="https://rs.school">
+        <img id='rs' src="https://rs.school/images/partners/logo-rs.svg" alt="rsschool logo"></img>
+      </a>
+    </div>
+  </footer> -->
+  <script src="./quiz.js"></script>
+</body>
+</html>
