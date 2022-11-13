@@ -121,13 +121,7 @@ section{
   border: 5px solid rgb(255, 255, 170);
   /* overflow: hidden; */
 }
-#bird-button:hover, 
-#bird-button:active
-.play-btn:hover,
-.play-btn:active,
-#mute:active{
-  background-color: unset;
-}
+
 #mute{
   font-size: 2rem;
 }
