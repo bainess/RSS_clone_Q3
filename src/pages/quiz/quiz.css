@@ -121,7 +121,6 @@ section{
   border: 5px solid rgb(255, 255, 170);
   /* overflow: hidden; */
 }
-
 #mute{
   font-size: 2rem;
 }
@@ -374,6 +373,44 @@ input::-webkit-slider-thumb{
 .round.wrong{
   background-color: rgb(170, 85, 133);
   border: 3px solid rgb(102, 17, 65);
+}
+/* informational block */
+.info-block{
+  display: flex;
+  flex-wrap: wrap;
+ justify-content:center ;
+}
+.screensaver{
+  width: 15vw;
+}
+
+.bird-names.hidden{
+  display: none;
+}
+.main-name{
+  font-family: "Marck";
+  font-size: 5rem;
+  text-decoration: underline overline #764B8E ;
+}
+.latin-name{
+  font-family: "Marhey";
+  font-size: 2.5rem;
+}
+.audio-player__container.hidden{
+  display: none;
+}
+.seekline{
+  width:10vw !important;
+}
+.volume{
+  width:5vw !important;
+}
+.bird-info{
+  font-family: "Caveat";
+  font-size: 4rem;
+}
+.bird-info.hidden{
+  display:none;
 }
 #next-level-btn{
   margin-top: 4rem;

@@ -6,7 +6,7 @@ const webpack = require('webpack');
 // const devtool = devMode ? 'source-map' : undefined;
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     // devtool,
     devServer: {
         port: 8080,

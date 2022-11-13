@@ -75,6 +75,34 @@
           </button>
         </div>
     </section>
+    <section class="info-block">
+      <img class="screensaver " src="../../assets/svg/question_mark.svg" alt="question mark">
+      <div info-section>
+        <div class="bird-names">
+          <h2 class="main-name">***</h2>
+          <h3 class="latin-name">***</h3>
+        </div>
+        <div id='small-player' class="audio-player__container small hidden"><div class="play-control">
+          <button class="play-btn">
+            <div id="play-icon" class="play"></div>
+          </button>
+        </div>
+        <div id="playbar">
+          <input type="range" class='seekline' oninput="setPosition(this.value)" id="seek-line" value="0" max="">
+        </div>
+        <div class="volume-controls small">
+          <button id="mute" class="play-btn " onclick="mute()">
+            <a href="" class="mute-icon">
+              <span></span>
+          </button>
+          <input type="range" class='volume' id="volume" oninput="setVolume(this.value)" man="0" max="1" step ="0.01">
+        </div></div>
+        <article >
+          <p class="bird-info ">***
+          </p>
+        </article>
+      </div>
+      </section>
     <button id="next-level-btn">Next Level</button>
   </main>
   <!-- <footer>

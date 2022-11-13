@@ -344,7 +344,6 @@ getQuestion ()
   //     }
   //   }
 
-let currentQuestion = 0;
 
 
 
@@ -424,10 +423,29 @@ let currentQuestion = 0;
       document.getElementById("buttons-block").addEventListener('click', colorIndicator);
     // document.getElementById("buttons-block").removeEventListener('click', colorIndicator)
   }
-  
-  getRightAnswer (currQuesPoolNum, currQues)
-  // start functions
+getRightAnswer (currQuesPoolNum, currQues)
 
+  //complete info section
+  
+
+  // start functions
+function fillInfoBlock () {
+  if (rightAnswer) {
+    const infoBlock = document.getElementsByClassName('info-block')[0];
+    const screensaver = document.getElementsByClassName('screensaver')[0]
+    const namesblock = document.getElementsByClassName('bird-names')[0];
+    const mainName = document.getElementsByClassName('main-name')[0];
+    const player = document.getElementById('small-player');
+    const latinName = document.getElementsByClassName('latin-name')[0];
+    let birdInfo = document.getElementsByClassName('bird-info')[0];
+    mainName.textContent = currQues.name;
+    latinName.textContent = currQues.species;
+    birdInfo.textContent = currQues.description ;
+    screensaver.src =  currQues.image;
+  }
+}
+document.getElementById('buttons-block').addEventListener('click', fillInfoBlock);
+// document.getElementById('buttons-block').removeEventListener('click', fillInfoBlock);
 
 
 // getQuestion (questionPool);
