@@ -27,12 +27,26 @@
       </section>
       <section>
         <div class="question-section">
-          <button id="question-button">
+          <button id="bird-button">
             <img id='secret-bird' src="../../assets/svg/1295782.svg" alt="">
           </button>
-          <div class="audio-player"></div>
-          <d class='.answer-option'></P>
-          iv id="equalizer"></d>
+          <div class="audio-player__container">
+            <div class="play-control">
+              <button class="play-btn">
+                <div id="play-icon" class="play"></div>
+              </button>
+            </div>
+            <div id="playbar">
+              <input type="range" oninput="setPosition(this.value)" id="seek-line" value="0" max="">
+            </div>
+            <div class="volume-controls">
+              <button id="mute" class="play-btn" onclick="mute()">
+                <a href="#" class="mute-icon">
+                  <span></span>
+              </button>
+              <input type="range" id="volume" oninput="setVolume(this.value)" man="0" max="1" step ="0.01">
+            </div>
+          </div>
         </div>
         <div id="buttons-block">
           <button class="answer-button">

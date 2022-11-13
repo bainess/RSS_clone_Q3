@@ -304,7 +304,7 @@ const birdsData = [
     }
   ]
 ];
-
+ // fill field buttons 
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
@@ -313,24 +313,87 @@ let questionPool = 1;
 function fillAnswerButtonsWithOptions(){
   let answerButtonsArray = Array.from(document.getElementsByClassName('answer-option'));
   for (let i = 0; i <= answerButtonsArray.length-1;i++){
-    for(let j= 0; j <= birdsData.length-1; j++){
+    for(let j= 0; j <= birdsData.length-1; j +=1){
       questionPool = [i];
-      let currentBirdArray = birdsData[j][i];
+      let currentBirdArray = birdsData[i][j];
       let birdName = currentBirdArray.name;
       answerButtonsArray[i].textContent = birdName;
       }
     }
-    
+}
+let currentQuestion = 0;
+
+
+function getQuestion (){
+  let currentBirdArray = birdsData[questionPool];
+  let randomQuestion = randomIntFromInterval(0, 5);
+  currentQuestion = randomQuestion;
+  return currentBirdArray[randomQuestion].audio;
+  
+}
+// player settings
+let soundSource = getQuestion ();
+let sound = new Audio(soundSource);
+let muted = false;
+let volume = 1;
+sound.type='audio/mpeg';
+
+function playPause() {
+  if (!sound.paused) {
+    sound.pause()
+  } else {
+    sound.play()
+  }
 }
 
-function getQuestion (questionPool){
-  let currentBirdArray = birdsData[questionPool];
-  let randomQuestion = randomIntFromInterval(1, 6);
-  let audioLink = currentBirdArray[randomQuestion].audio;
-  console.log (audioLink)
+let playButton = document.getElementsByClassName('play-btn')[0];
+playButton.addEventListener('click', () => {playPause(), toggleClass()});
+
+function setPosition (position){
+  sound.currentTime = position;
 }
+
+function mute() {
+  if (muted) {
+    sound.volume = volume;
+    muted = false;
+  } else {
+    sound.volume = 0;
+    muted = true;
+  }
+}
+mute();
+function setVolume(vol) {
+  sound.volume = vol;
+  volume = vol;
+}
+setVolume(volume);
+
+sound.addEventListener('timeupdate', function() {
+  let currTime = parseInt(sound.currentTime, 10);
+  console.log(currTime)
+  document.getElementById('seek-line').max = sound.duration;
+  document.getElementById('seek-line').value = currTime;
+} )
+
+let listToggle = 0;
+const classes = [ 'pause', 'play'];
+
+let toggleClass = () => {
+  const playIcon = document.getElementById('play-icon');
+  playIcon.classList = classes[listToggle++ % classes.length];
+}
+
+// work with game
+function getRightAnswer () {
+
+}
+
+// start functions
 fillAnswerButtonsWithOptions();
-getQuestion (questionPool);
+
+
+// getQuestion (questionPool);
 
 
 // function createOptionsPool () {
