@@ -8,6 +8,7 @@ import scrSaverPic from './assets/svg/question_mark.svg'
 console.log("scrSaverPic", scrSaverPic)
 let currQuesPoolNum = '';
 let currQues;
+
 let clickedBird;
 let soundSourceSmall;
 let soundSmall;
@@ -347,7 +348,7 @@ function getQuestion (){
   return currQues = currentBirdArray[randomQuestion];
 }
 getQuestion ()
-  
+
   // for (let i = 0; i <= answerButtonsArray.length-1;i++){
   //   for(let j= 0; j <= birdsData.length-1; j +=1){
   //     questionPool = [i];
@@ -360,12 +361,18 @@ getQuestion ()
 
 
 
-  // player settings
-  let soundSource = currQues.audio;
-  let sound = new Audio(soundSource);
-  let muted = true;
-  let volume = 1;
+// player settings
+let soundSource ;
+let sound;
+let muted = true;
+let volume = 1;
+
+function setPlayerSettings() {
+  soundSource = currQues.audio;
+  sound = new Audio(soundSource);
   sound.type='audio/mpeg';
+}
+  setPlayerSettings();
 
   // player1 or player2
   function playPause(s) {
@@ -541,5 +548,5 @@ function startNextQuestion() {
  }
 }
 nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), randomIntFromInterval(),
-   fillAnswerButtonsWithOptions(),getQuestion()
+   fillAnswerButtonsWithOptions(),getQuestion(), setPlayerSettings(), toggleClass(playIcon)
  } )
