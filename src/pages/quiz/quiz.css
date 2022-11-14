@@ -121,13 +121,21 @@ section{
   border: 5px solid rgb(255, 255, 170);
   /* overflow: hidden; */
 }
-#mute{
+#mute,
+#mute-small {
   font-size: 2rem;
 }
 @media screen and (max-width: 770px){
-  #bird-button{
+  #bird-button {
     height: 30vw;
   }
+}
+.task {
+  font-family: "Marck";
+  font-size: 3rem;
+}
+.task.hidden {
+  display: none;
 }
 #secret-bird{
   display: block;
@@ -168,7 +176,7 @@ input::-webkit-slider-thumb{
   border-radius: 10px;
   background: rgb(118, 75, 142);
 }
-#seek-line{
+.seekline{
   display: block;
   width: 20vw;
 }
@@ -193,7 +201,7 @@ input::-webkit-slider-thumb{
     background-position: 0 0;
   }
 }
-.play-btn {
+.controls-btn {
   position: relative;
   /* display:flex; */
   height: 50px;
@@ -205,7 +213,7 @@ input::-webkit-slider-thumb{
   box-sizing: border-box;
 }
 @media screen and (max-width: 780px){
-  .play-btn{
+  .controls-btn{
     height: 30px;
     width: 30px;
   }
