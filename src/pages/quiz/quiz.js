@@ -9,6 +9,8 @@ let clickedBird;
 let soundSourceSmall;
 let soundSmall;
 const warmUpQuestion = document.getElementsByClassName('question-type')[0];
+const questionTypes = Array.from(document.getElementsByClassName('question-type'));
+const nextLvlBtn = document.getElementById('next-level-btn')
 warmUpQuestion.classList.add('active');
 
 const answerOptions = Array.from(document.getElementsByClassName('answer-button'));
@@ -324,13 +326,13 @@ function fillAnswerButtonsWithOptions(){
   const answerButtonsArray = Array.from(document.getElementsByClassName('answer-option'));
   const questionTypes = Array.from(document.getElementsByClassName('question-type'));
   
-  questionTypes.forEach((el, i) => {
+  questionTypes.forEach((el, idx) => {
     if (el.classList.contains('active')){
-      currQuesPoolNum = i;
+      currQuesPoolNum = idx;
     };
   })
 
-  for (let i = 0; i <= birdsData[currQuesPoolNum].length-1; i++){
+  for (let i = currQuesPoolNum; i <= birdsData[currQuesPoolNum].length-1; i++){
     answerButtonsArray[i].textContent = birdsData[currQuesPoolNum][i].name;
   }
 }
@@ -438,7 +440,7 @@ let rightAnswer = false;
 
 function getRightSoundAnswer(e) {
   let flag = false;
-  if(!flag) {
+  if(!flag && !rightAnswer) {
     e.target.closest('button').classList.add('active')
     let answerIndicatior = e.target.closest('button').getElementsByClassName('round')[0];
     if(e.target.closest('button').id == currQues.id){
@@ -450,7 +452,7 @@ function getRightSoundAnswer(e) {
       sound.pause();
       flag = true;
     } else {
-
+      console.log(answerIndicatior)
       answerIndicatior.classList.add('wrong');
       const failSound = new Audio(failSoundMp3);
       failSound.play()
@@ -461,6 +463,8 @@ document.getElementById("buttons-block").addEventListener('click', getRightSound
 
   //complete info section
 function fillInfoBlock (e) {
+  // if ()
+  let task= document.getElementsByClassName('task')[0];
   const infoBlock = document.getElementsByClassName('info-block')[0];
   const screensaver = document.getElementsByClassName('screensaver')[0]
   const namesblock = document.getElementsByClassName('bird-names')[0];
@@ -469,7 +473,7 @@ function fillInfoBlock (e) {
   const latinName = document.getElementsByClassName('latin-name')[0];
   let birdInfo = document.getElementsByClassName('bird-info')[0];
   let clickedId = e.target.closest('button').id;
-  
+  task.classList.add('hidden');
   clickedBird = birdsData[currQuesPoolNum][clickedId-1];
   mainName.textContent = clickedBird.name;
   latinName.textContent = clickedBird.species;
@@ -477,7 +481,9 @@ function fillInfoBlock (e) {
   screensaver.src =  clickedBird.image;
   player.classList.remove('hidden')
   soundSourceSmall = clickedBird.audio;
-  
+  if (!rightAnswer){
+
+  }
   if(soundSmall) {
       soundSmall.pause();
     }
@@ -498,3 +504,28 @@ sound.addEventListener('timeupdate', function() {
   document.getElementById('seek-line-small').value = currTime;
 } )
 document.getElementById('buttons-block').addEventListener('click', fillInfoBlock);
+
+// move to next question
+function startNextQuestion() {
+  let answerIndicators = Array.from(document.getElementsByClassName('round'));
+ if (rightAnswer && currQuesPoolNum <=5) {
+  rightAnswer = false;
+  questionTypes[currQuesPoolNum].classList.remove('active');
+  questionTypes[currQuesPoolNum+1].classList.add('active');
+  currQuesPoolNum += 1;
+  answerIndicators.forEach((el) => {
+    if (el.classList.contains('active') ){
+      el.classList.remove('active')
+    } else if (el.classList.contains('right')) {
+      el.classList.remove('right')
+    } else if (el.classList.contains('wrong')) {
+      el.classList.remove('wrong');
+    }
+  });
+
+ }
+ 
+}
+nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),randomIntFromInterval(),
+   fillAnswerButtonsWithOptions(),getQuestion(), getRightSoundAnswer(e),
+    fillInfoBlock(e)}  )

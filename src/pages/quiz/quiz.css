@@ -122,13 +122,20 @@ section{
   /* overflow: hidden; */
 }
 #mute,
-#mute-small{
+#mute-small {
   font-size: 2rem;
 }
 @media screen and (max-width: 770px){
-  #bird-button{
+  #bird-button {
     height: 30vw;
   }
+}
+.task {
+  font-family: "Marck";
+  font-size: 3rem;
+}
+.task.hidden {
+  display: none;
 }
 #secret-bird{
   display: block;
