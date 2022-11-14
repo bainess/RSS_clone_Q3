@@ -330,7 +330,6 @@ fillAnswerButtonsWithOptions();
 function getQuestion (){
   let currentBirdArray = birdsData[currQuesPoolNum];
   let randomQuestion = randomIntFromInterval(0, 5);
-  console.log(currentBirdArray[randomQuestion])
   return currQues = currentBirdArray[randomQuestion];
 }
 getQuestion ()
@@ -350,11 +349,12 @@ getQuestion ()
   // player settings
   let soundSource = currQues.audio;
   let sound = new Audio(soundSource);
-  let muted = false;
+  let soundSmall = new Audio(soundSource);
+  let muted = true;
   let volume = 1;
   sound.type='audio/mpeg';
 
-  function playPause() {
+  function playPause(sound) {
     if (!sound.paused) {
       sound.pause()
     } else {
@@ -362,9 +362,18 @@ getQuestion ()
     }
   }
 
-  let playButton = document.getElementsByClassName('play-btn')[0];
-  playButton.addEventListener('click', () => {playPause(), toggleClass()});
-
+  const playButton = document.getElementsByClassName('controls-btn')[0];
+  const playButtonSmall = document.getElementById('play-btn-small');
+  playButton.addEventListener('click', () => {
+    console.log("playButton", playButton);
+    playPause(sound);
+    toggleClass(playIcon)
+  });
+  playButtonSmall.addEventListener('click', () => {
+    console.log("playButtonSmall", playButtonSmall)
+    playPause(soundSmall);
+    toggleClass(playIconSmall)
+  });
   function setPosition (position){
     sound.currentTime = position;
   }
@@ -387,17 +396,24 @@ getQuestion ()
 
   sound.addEventListener('timeupdate', function() {
     let currTime = parseInt(sound.currentTime, 10);
-    console.log(currTime)
     document.getElementById('seek-line').max = sound.duration;
     document.getElementById('seek-line').value = currTime;
+  } )
+
+  sound.addEventListener('timeupdate', function() {
+    let currTime = parseInt(sound.currentTime, 10);
+    document.getElementById('seek-line-small').max = sound.duration;
+    document.getElementById('seek-line-small').value = currTime;
   } )
 
   let listToggle = 0;
   const classes = [ 'pause', 'play'];
 
-  let toggleClass = () => {
-    const playIcon = document.getElementById('play-icon');
-    playIcon.classList = classes[listToggle++ % classes.length];
+
+const playIcon = document.getElementById('play-icon');
+const playIconSmall = document.getElementById('play-icon-small');
+  let toggleClass = (icon) => {
+    icon.classList = classes[listToggle++ % classes.length];
   }
 
   // work with game
@@ -438,6 +454,7 @@ function fillInfoBlock () {
     const player = document.getElementById('small-player');
     const latinName = document.getElementsByClassName('latin-name')[0];
     let birdInfo = document.getElementsByClassName('bird-info')[0];
+    player.classList.remove('hidden')
     mainName.textContent = currQues.name;
     latinName.textContent = currQues.species;
     birdInfo.textContent = currQues.description ;
@@ -445,6 +462,8 @@ function fillInfoBlock () {
   }
 }
 document.getElementById('buttons-block').addEventListener('click', fillInfoBlock);
+
+
 // document.getElementById('buttons-block').removeEventListener('click', fillInfoBlock);
 
 
