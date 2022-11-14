@@ -3,6 +3,9 @@
 // const failSoundMp3 = require('./assets/sounds/fail.mp3');
 import failSoundMp3 from './assets/sounds/fail.mp3';
 import winSoundMp3 from './assets/sounds/win.wav';
+import scrSaverPic from './assets/svg/question_mark.svg'
+
+console.log("scrSaverPic", scrSaverPic)
 let currQuesPoolNum = '';
 let currQues;
 let clickedBird;
@@ -463,7 +466,6 @@ document.getElementById("buttons-block").addEventListener('click', getRightSound
 
   //complete info section
 function fillInfoBlock (e) {
-  // if ()
   let task= document.getElementsByClassName('task')[0];
   const infoBlock = document.getElementsByClassName('info-block')[0];
   const screensaver = document.getElementsByClassName('screensaver')[0]
@@ -473,6 +475,7 @@ function fillInfoBlock (e) {
   const latinName = document.getElementsByClassName('latin-name')[0];
   let birdInfo = document.getElementsByClassName('bird-info')[0];
   let clickedId = e.target.closest('button').id;
+
   task.classList.add('hidden');
   clickedBird = birdsData[currQuesPoolNum][clickedId-1];
   mainName.textContent = clickedBird.name;
@@ -481,15 +484,27 @@ function fillInfoBlock (e) {
   screensaver.src =  clickedBird.image;
   player.classList.remove('hidden')
   soundSourceSmall = clickedBird.audio;
-  if (!rightAnswer){
-
-  }
+  
   if(soundSmall) {
-      soundSmall.pause();
-    }
+    soundSmall.pause();
+  }
   soundSmall= new Audio(soundSourceSmall);
 }
 
+function removeInfo () {
+  let task= document.getElementsByClassName('task')[0];
+  const screensaver = document.getElementsByClassName('screensaver')[0]
+  const mainName = document.getElementsByClassName('main-name')[0];
+  const player = document.getElementById('small-player');
+  const latinName = document.getElementsByClassName('latin-name')[0];
+  let birdInfo = document.getElementsByClassName('bird-info')[0];
+  task.classList.remove('hidden');
+  mainName.textContent = '***';
+  latinName.textContent = '***';
+  birdInfo.textContent = '***' ;
+  screensaver.src = scrSaverPic;
+  player.classList.add('hidden')
+}
 // small player settings
 
 const playButtonSmall = document.getElementById('play-btn-small');
@@ -513,6 +528,7 @@ function startNextQuestion() {
   questionTypes[currQuesPoolNum].classList.remove('active');
   questionTypes[currQuesPoolNum+1].classList.add('active');
   currQuesPoolNum += 1;
+  answerOptions.forEach((el) => {el.disabled = false})
   answerIndicators.forEach((el) => {
     if (el.classList.contains('active') ){
       el.classList.remove('active')
@@ -522,10 +538,8 @@ function startNextQuestion() {
       el.classList.remove('wrong');
     }
   });
-
  }
- 
 }
-nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),randomIntFromInterval(),
-   fillAnswerButtonsWithOptions(),getQuestion(), getRightSoundAnswer(e),
-    fillInfoBlock(e)}  )
+nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), randomIntFromInterval(),
+   fillAnswerButtonsWithOptions(),getQuestion()
+ } )
