@@ -332,7 +332,7 @@ function fillAnswerButtonsWithOptions(){
     };
   })
 
-  for (let i = currQuesPoolNum; i <= birdsData[currQuesPoolNum].length-1; i++){
+  for (let i = 0; i <= birdsData[currQuesPoolNum].length-1; i++){
     answerButtonsArray[i].textContent = birdsData[currQuesPoolNum][i].name;
   }
 }
