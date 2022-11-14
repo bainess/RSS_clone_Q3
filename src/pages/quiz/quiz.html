@@ -37,7 +37,7 @@
               </button>
             </div>
             <div id="playbar">
-              <input type="range" oninput="setPosition(this.value, sound)" class='seekline' id="seek-line-small" value="0" max="">
+              <input type="range" oninput="setPosition(this.value)" class='seekline' id="seek-line-small" value="0" max="">
             </div>
             <div class="volume-controls">
               <button id="mute" class="controls-btn" onclick="mute()">
@@ -88,7 +88,7 @@
           </button>
         </div>
         <div id="playbar">
-          <input type="range" class='seekline' oninput="setPosition(this.value, soundSmall)" id="seek-line" value="0" max="">
+          <input type="range" class='seekline' oninput="setPosition(this.value)" id="seek-line" value="0" max="">
         </div>
         <div class="volume-controls small">
           <button id="mute-small" class="controls-btn " onclick="mute()">

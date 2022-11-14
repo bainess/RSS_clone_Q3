@@ -3,7 +3,11 @@
 // const failSoundMp3 = require('./assets/sounds/fail.mp3');
 import failSoundMp3 from './assets/sounds/fail.mp3';
 import winSoundMp3 from './assets/sounds/win.wav';
-
+let currQuesPoolNum = '';
+let currQues;
+let clickedBird;
+let soundSourceSmall;
+let soundSmall;
 const warmUpQuestion = document.getElementsByClassName('question-type')[0];
 warmUpQuestion.classList.add('active');
 
@@ -314,9 +318,8 @@ const birdsData = [
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
-// let questionPool = 1;
-let currQuesPoolNum = '';
-let currQues;
+
+
 function fillAnswerButtonsWithOptions(){
   const answerButtonsArray = Array.from(document.getElementsByClassName('answer-option'));
   const questionTypes = Array.from(document.getElementsByClassName('question-type'));
@@ -355,32 +358,41 @@ getQuestion ()
   // player settings
   let soundSource = currQues.audio;
   let sound = new Audio(soundSource);
-  let soundSmall = new Audio(soundSource);
   let muted = true;
   let volume = 1;
   sound.type='audio/mpeg';
 
-  function playPause(sound) {
-    if (!sound.paused) {
-      sound.pause()
+  // player1 or player2
+  function playPause(s) {
+    console.log(sound.played, sound.paused)
+    // console.log(soundSmall.played)
+    let toPlaySound;
+    let toPauseSound;
+    if(s === sound) {
+      toPlaySound = sound;
+      toPauseSound = soundSmall
+    } else if (s === soundSmall) {
+      toPlaySound = soundSmall;
+      toPauseSound = sound
+    }
+    if (!toPlaySound.paused) {
+      toPlaySound.pause()
     } else {
-      sound.play()
+      if(toPauseSound && toPauseSound.played && toPauseSound.played.length) {
+        toPauseSound.pause()
+      }
+      toPlaySound.play()
     }
   }
 
   const playButton = document.getElementsByClassName('controls-btn')[0];
-  const playButtonSmall = document.getElementById('play-btn-small');
+  
   playButton.addEventListener('click', () => {
-    console.log("playButton", playButton);
     playPause(sound);
     toggleClass(playIcon)
   });
-  playButtonSmall.addEventListener('click', () => {
-    console.log("playButtonSmall", playButtonSmall)
-    playPause(soundSmall);
-    toggleClass(playIconSmall)
-  });
-  function setPosition (position){
+  
+  function setPosition (){
     sound.currentTime = position;
   }
 
@@ -395,7 +407,6 @@ getQuestion ()
   }
   document.getElementById('mute').addEventListener('click', mute);
   document.getElementById('mute-small').addEventListener('click', mute);
-  mute();
   function setVolume(vol) {
     sound.volume = vol;
     volume = vol;
@@ -408,96 +419,82 @@ getQuestion ()
     document.getElementById('seek-line').value = currTime;
   } )
 
-  sound.addEventListener('timeupdate', function() {
-    let currTime = parseInt(sound.currentTime, 10);
-    document.getElementById('seek-line-small').max = sound.duration;
-    document.getElementById('seek-line-small').value = currTime;
-  } )
+
 
   let listToggle = 0;
   const classes = [ 'pause', 'play'];
 
 
 const playIcon = document.getElementById('play-icon');
-const playIconSmall = document.getElementById('play-icon-small');
+
   let toggleClass = (icon) => {
     icon.classList = classes[listToggle++ % classes.length];
   }
 
   // work with game
-  let rightAnswer = false;
-  function getRightAnswer (currQuesPoolNum, currQues) {
-      let flag = false;
-      function colorIndicator(e) {
-        if(!flag) {
-          e.target.closest('button').classList.add('active')
-          let answerIndicatior = e.target.closest('button').getElementsByClassName('round')[0];
-          if(e.target.closest('button').id == currQues.id){
-            rightAnswer = true;
-            answerOptions.forEach((el) => {el.disabled = true})
-            answerIndicatior.classList.add('right');
-            const winsound = new Audio(winSoundMp3);
-            winsound.play()
-            flag = true;
-          } else {
-            console.log('wrong', currQues.name);
-            answerIndicatior.classList.add('wrong');
-            const failSound = new Audio(failSoundMp3);
-            failSound.play()
-          }
-        }
-      }
-      document.getElementById("buttons-block").addEventListener('click', colorIndicator);
-    // document.getElementById("buttons-block").removeEventListener('click', colorIndicator)
-  }
-getRightAnswer (currQuesPoolNum, currQues)
 
-  //complete info section
-  
 
-  // start functions
-function fillInfoBlock () {
-  if (rightAnswer) {
-    const infoBlock = document.getElementsByClassName('info-block')[0];
-    const screensaver = document.getElementsByClassName('screensaver')[0]
-    const namesblock = document.getElementsByClassName('bird-names')[0];
-    const mainName = document.getElementsByClassName('main-name')[0];
-    const player = document.getElementById('small-player');
-    const latinName = document.getElementsByClassName('latin-name')[0];
-    let birdInfo = document.getElementsByClassName('bird-info')[0];
-    player.classList.remove('hidden')
-    mainName.textContent = currQues.name;
-    latinName.textContent = currQues.species;
-    birdInfo.textContent = currQues.description ;
-    screensaver.src =  currQues.image;
+let rightAnswer = false;
+
+function getRightSoundAnswer(e) {
+  let flag = false;
+  if(!flag) {
+    e.target.closest('button').classList.add('active')
+    let answerIndicatior = e.target.closest('button').getElementsByClassName('round')[0];
+    if(e.target.closest('button').id == currQues.id){
+      rightAnswer = true;
+      answerOptions.forEach((el) => {el.disabled = true})
+      answerIndicatior.classList.add('right');
+      const winsound = new Audio(winSoundMp3);
+      winsound.play()
+      sound.pause();
+      flag = true;
+    } else {
+
+      answerIndicatior.classList.add('wrong');
+      const failSound = new Audio(failSoundMp3);
+      failSound.play()
+    }
   }
 }
+document.getElementById("buttons-block").addEventListener('click', getRightSoundAnswer);
+
+  //complete info section
+function fillInfoBlock (e) {
+  const infoBlock = document.getElementsByClassName('info-block')[0];
+  const screensaver = document.getElementsByClassName('screensaver')[0]
+  const namesblock = document.getElementsByClassName('bird-names')[0];
+  const mainName = document.getElementsByClassName('main-name')[0];
+  const player = document.getElementById('small-player');
+  const latinName = document.getElementsByClassName('latin-name')[0];
+  let birdInfo = document.getElementsByClassName('bird-info')[0];
+  let clickedId = e.target.closest('button').id;
+  
+  clickedBird = birdsData[currQuesPoolNum][clickedId-1];
+  mainName.textContent = clickedBird.name;
+  latinName.textContent = clickedBird.species;
+  birdInfo.textContent = clickedBird.description ;
+  screensaver.src =  clickedBird.image;
+  player.classList.remove('hidden')
+  soundSourceSmall = clickedBird.audio;
+  
+  if(soundSmall) {
+      soundSmall.pause();
+    }
+  soundSmall= new Audio(soundSourceSmall);
+}
+
+// small player settings
+
+const playButtonSmall = document.getElementById('play-btn-small');
+const playIconSmall = document.getElementById('play-icon-small');
+playButtonSmall.addEventListener('click', () => {
+  playPause(soundSmall);
+  toggleClass(playIconSmall)
+});
+sound.addEventListener('timeupdate', function() {
+  let currTime = parseInt(sound.currentTime, 10);
+  document.getElementById('seek-line-small').max = sound.duration;
+  document.getElementById('seek-line-small').value = currTime;
+} )
 document.getElementById('buttons-block').addEventListener('click', fillInfoBlock);
-
-
-
-// document.getElementById('buttons-block').removeEventListener('click', fillInfoBlock);
-
-
-// getQuestion (questionPool);
-
-
-// function createOptionsPool () {
-//   const optionsArray = [];
-//   for (let i = 0; i <= birdsData.length-1; i++){
-//     let random = randomIntFromInterval(1, 6);
-//     console.log('random', random);
-//     optionsArray.push(birdsData[i][random-1]);
-//   }
-//   return optionsArray;
-// }
-// let optionsPool = createOptionsPool ();
-// console.log(optionsPool);
-
-
-// function createQuestion (optionsPool){
-//   let random = randomIntFromInterval(1, 6);
-//   let audioLink = optionsPool[random][audio];
-//   console.log(audioLink);
-// }
-// createQuestion (optionsPool);
