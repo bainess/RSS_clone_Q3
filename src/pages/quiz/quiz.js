@@ -1,7 +1,13 @@
 'use strict';
+// const winSoundMp3 = require('./assets/sounds/win.wav');
+// const failSoundMp3 = require('./assets/sounds/fail.mp3');
+import failSoundMp3 from './assets/sounds/fail.mp3';
+import winSoundMp3 from './assets/sounds/win.wav';
+
 const warmUpQuestion = document.getElementsByClassName('question-type')[0];
 warmUpQuestion.classList.add('active');
 
+const answerOptions = Array.from(document.getElementsByClassName('answer-button'));
 const birdsData = [
   [       
     {
@@ -387,6 +393,8 @@ getQuestion ()
       muted = true;
     }
   }
+  document.getElementById('mute').addEventListener('click', mute);
+  document.getElementById('mute-small').addEventListener('click', mute);
   mute();
   function setVolume(vol) {
     sound.volume = vol;
@@ -419,7 +427,6 @@ const playIconSmall = document.getElementById('play-icon-small');
   // work with game
   let rightAnswer = false;
   function getRightAnswer (currQuesPoolNum, currQues) {
-    const answerOptions = Array.from(document.getElementsByClassName('answer-button'));
       let flag = false;
       function colorIndicator(e) {
         if(!flag) {
@@ -429,10 +436,14 @@ const playIconSmall = document.getElementById('play-icon-small');
             rightAnswer = true;
             answerOptions.forEach((el) => {el.disabled = true})
             answerIndicatior.classList.add('right');
+            const winsound = new Audio(winSoundMp3);
+            winsound.play()
             flag = true;
           } else {
             console.log('wrong', currQues.name);
             answerIndicatior.classList.add('wrong');
+            const failSound = new Audio(failSoundMp3);
+            failSound.play()
           }
         }
       }
@@ -462,6 +473,7 @@ function fillInfoBlock () {
   }
 }
 document.getElementById('buttons-block').addEventListener('click', fillInfoBlock);
+
 
 
 // document.getElementById('buttons-block').removeEventListener('click', fillInfoBlock);
