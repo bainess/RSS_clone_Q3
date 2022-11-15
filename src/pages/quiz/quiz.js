@@ -376,7 +376,7 @@ function setPlayerSettings() {
 
   // player1 or player2
   function playPause(s) {
-    console.log(sound.played, sound.paused)
+    // console.log(sound.played, sound.paused)
     // console.log(soundSmall.played)
     let toPlaySound;
     let toPauseSound;
@@ -393,7 +393,11 @@ function setPlayerSettings() {
       if(toPauseSound && toPauseSound.played && toPauseSound.played.length) {
         toPauseSound.pause()
       }
-      toPlaySound.play()
+      try{
+        toPlaySound.play()
+      }catch (e){
+        console.error(e.message);
+      }
     }
   }
 
@@ -403,10 +407,14 @@ function setPlayerSettings() {
     playPause(sound);
     toggleClass(playIcon)
   });
-  
-  function setPosition (){
-    sound.currentTime = position;
+  let position = document.getElementById('seek-line').value;
+  let positionSmall =  document.getElementById('seek-line-small').value;
+
+  function setPosition (pos, s){
+    s.currentTime = pos;
   }
+  document.getElementById('seek-line').addEventListener('input', () =>  setPosition(position, sound))
+
 
   function mute() {
     if (muted) {
@@ -496,6 +504,11 @@ function fillInfoBlock (e) {
     soundSmall.pause();
   }
   soundSmall= new Audio(soundSourceSmall);
+  soundSmall.addEventListener('timeupdate', function() {
+    let currTime = parseInt(soundSmall.currentTime, 10);
+    document.getElementById('seek-line-small').max = soundSmall.duration;
+    document.getElementById('seek-line-small').value = currTime;
+  })
 }
 
 function removeInfo () {
@@ -520,17 +533,15 @@ playButtonSmall.addEventListener('click', () => {
   playPause(soundSmall);
   toggleClass(playIconSmall)
 });
-sound.addEventListener('timeupdate', function() {
-  let currTime = parseInt(sound.currentTime, 10);
-  document.getElementById('seek-line-small').max = sound.duration;
-  document.getElementById('seek-line-small').value = currTime;
-} )
+
+
+document.getElementById('seek-line-small').addEventListener('input', () => setPosition(positionSmall, soundSmall))
 document.getElementById('buttons-block').addEventListener('click', fillInfoBlock);
 
 // move to next question
 function startNextQuestion() {
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
- if (rightAnswer && currQuesPoolNum <=5) {
+  if (rightAnswer && currQuesPoolNum <=5) {
   rightAnswer = false;
   questionTypes[currQuesPoolNum].classList.remove('active');
   questionTypes[currQuesPoolNum+1].classList.add('active');
