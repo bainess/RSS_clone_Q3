@@ -372,7 +372,7 @@ function setPlayerSettings() {
   sound = new Audio(soundSource);
   sound.type='audio/mpeg';
 }
-  setPlayerSettings();
+setPlayerSettings();
 
   // player1 or player2
   function playPause(s) {
@@ -402,9 +402,17 @@ function setPlayerSettings() {
   }
 
   const playButton = document.getElementsByClassName('controls-btn')[0];
-  
+  const playIcon = document.getElementById('play-icon');
+  let listToggle = 0;
+  const classes = ['pause', 'play'];
+
+  function toggleClass (icon) {
+    console.log(icon)
+    icon.classList = classes[listToggle++ % classes.length];
+  }
   playButton.addEventListener('click', () => {
     playPause(sound);
+    console.log(classes)
     toggleClass(playIcon)
   });
   let position = document.getElementById('seek-line').value;
@@ -416,22 +424,27 @@ function setPlayerSettings() {
   document.getElementById('seek-line').addEventListener('input', () =>  setPosition(position, sound))
 
 
-  function mute() {
-    if (muted) {
-      sound.volume = volume;
-      muted = false;
-    } else {
-      sound.volume = 0;
-      muted = true;
-    }
-  }
-  document.getElementById('mute').addEventListener('click', mute);
-  document.getElementById('mute-small').addEventListener('click', mute);
-  function setVolume(vol) {
-    sound.volume = vol;
-    volume = vol;
-  }
-  setVolume(volume);
+// function mute(s) {
+//   if (muted) {
+//     s.volume = volume;
+//     muted = false;
+//   } else {
+//     s.volume = 0;
+//     muted = true;
+//   }
+// }
+//   document.getElementById('mute').addEventListener('click', mute(sound));
+  
+
+//  volume = document.getElementById('volume').volume;
+//  console.log(volume)
+// function setVolume(vol, s) {
+//   s.volume = vol;
+//   volume = vol;
+// }
+// // document.getElementById('mute-small').addEventListener('click', mute(soundSmall));
+// document.getElementById('volume').addEveventListener('input', setVolume(volume, sound));
+// document.getElementById('volumeSmall').addEveventListener('input', setVolume(volume, soundSmall));
 
   sound.addEventListener('timeupdate', function() {
     let currTime = parseInt(sound.currentTime, 10);
@@ -441,15 +454,7 @@ function setPlayerSettings() {
 
 
 
-  let listToggle = 0;
-  const classes = [ 'pause', 'play'];
 
-
-const playIcon = document.getElementById('play-icon');
-
-  let toggleClass = (icon) => {
-    icon.classList = classes[listToggle++ % classes.length];
-  }
 
   // work with game
 
@@ -479,7 +484,6 @@ function getRightSoundAnswer(e) {
 }
 document.getElementById("buttons-block").addEventListener('click', getRightSoundAnswer);
 
-  //complete info section
 function fillInfoBlock (e) {
   let task= document.getElementsByClassName('task')[0];
   const infoBlock = document.getElementsByClassName('info-block')[0];
@@ -525,18 +529,39 @@ function removeInfo () {
   screensaver.src = scrSaverPic;
   player.classList.add('hidden')
 }
+
+// let score = 0;
+
+// scoreCounter.textContent = score;
+function getScore () {
+  let attempsCounter;
+  // if (rightAnswer) {
+    const indicatorsArr = Array.from(document.getElementsByClassName('round'));
+    attempsCounter = indicatorsArr.reduce((score, el) => (el.classList.contains('wrong')) ? (score + 1) : (score + 0),0)
+  // };
+  return 5 - attempsCounter;
+}
+
+function showScore() {
+  if (rightAnswer) {
+    let scoreEl = document.getElementById('score-counter');
+    scoreEl.textContent = '';
+    console.log(getScore())
+    scoreEl.textContent =  getScore(); 
+  }
+}
 // small player settings
 
 const playButtonSmall = document.getElementById('play-btn-small');
 const playIconSmall = document.getElementById('play-icon-small');
 playButtonSmall.addEventListener('click', () => {
   playPause(soundSmall);
-  toggleClass(playIconSmall)
+  toggleClass(playIconSmall);
 });
 
 
 document.getElementById('seek-line-small').addEventListener('input', () => setPosition(positionSmall, soundSmall))
-document.getElementById('buttons-block').addEventListener('click', fillInfoBlock);
+document.getElementById('buttons-block').addEventListener('click', (e) => {fillInfoBlock(e), showScore()});
 
 // move to next question
 function startNextQuestion() {

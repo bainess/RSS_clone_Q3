@@ -13,7 +13,7 @@
     <header class='header__quiz'>
         <a class='logo' href="./index.html">SongBird</a>
         <div class="score-display">
-          <p>Score: <p id="score-counter"></p></p>
+          <p>Score: <p id="score-counter">0</p></p>
         </div>
     </header>
     <main>
@@ -44,7 +44,7 @@
                 <div href="#" class="mute-icon">
                   <span></span>
               </button>
-              <input type="range" id="volume" oninput="setVolume(this.value)" man="0" max="1" step ="0.01">
+              <input type="range" id="volume"  man="0" max="1" step ="0.01">
             </div>
           </div>
         </div>
@@ -96,7 +96,7 @@
             <div class="mute-icon">
               <span></span>
           </button>
-          <input type="range" class='volume' id="volume" oninput="setVolume(this.value)" man="0" max="1" step ="0.01">
+          <input type="range" class='volume' id="volumeSmall"  man="0" max="1" step ="0.01">
         </div></div>
         <article >
           <p class="bird-info ">***

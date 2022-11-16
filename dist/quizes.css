@@ -57,7 +57,10 @@ header>a{
 .score-display{
   margin: 3rem 5rem 0 0 ;
   font-family: "Marck";
-  font-size: 3rem;
+  font-size: 2rem;
+}
+.score-display>p{
+  display: inline;
 }
 @media screen and (max-width: 390px){
   .score-display{
