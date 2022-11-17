@@ -5,7 +5,6 @@ import failSoundMp3 from './assets/sounds/fail.mp3';
 import winSoundMp3 from './assets/sounds/win.wav';
 import scrSaverPic from './assets/svg/question_mark.svg'
 
-console.log("scrSaverPic", scrSaverPic)
 let currQuesPoolNum = '';
 let currQues;
 
@@ -376,8 +375,6 @@ setPlayerSettings();
 
   // player1 or player2
   function playPause(s) {
-    // console.log(sound.played, sound.paused)
-    // console.log(soundSmall.played)
     let toPlaySound;
     let toPauseSound;
     if(s === sound) {
@@ -407,12 +404,10 @@ setPlayerSettings();
   const classes = ['pause', 'play'];
 
   function toggleClass (icon) {
-    console.log(icon)
     icon.classList = classes[listToggle++ % classes.length];
   }
   playButton.addEventListener('click', () => {
     playPause(sound);
-    console.log(classes)
     toggleClass(playIcon)
   });
   let position = document.getElementById('seek-line').value;
@@ -475,7 +470,6 @@ function getRightSoundAnswer(e) {
       sound.pause();
       flag = true;
     } else {
-      console.log(answerIndicatior)
       answerIndicatior.classList.add('wrong');
       const failSound = new Audio(failSoundMp3);
       failSound.play()
@@ -534,20 +528,19 @@ function removeInfo () {
 
 // scoreCounter.textContent = score;
 function getScore () {
+  let currScore = document.getElementById('score-counter').textContent;
   let attempsCounter;
-  // if (rightAnswer) {
-    const indicatorsArr = Array.from(document.getElementsByClassName('round'));
-    attempsCounter = indicatorsArr.reduce((score, el) => (el.classList.contains('wrong')) ? (score + 1) : (score + 0),0)
-  // };
-  return 5 - attempsCounter;
+  const indicatorsArr = Array.from(document.getElementsByClassName('round'));
+  attempsCounter = indicatorsArr.reduce((score, el) => (el.classList.contains('wrong')) ? (score + 1) : (score + 0),0)
+  return +currScore + 5 - attempsCounter;
 }
 
 function showScore() {
   if (rightAnswer) {
     let scoreEl = document.getElementById('score-counter');
+    let score = getScore();
     scoreEl.textContent = '';
-    console.log(getScore())
-    scoreEl.textContent =  getScore(); 
+    scoreEl.textContent = score; 
   }
 }
 // small player settings
