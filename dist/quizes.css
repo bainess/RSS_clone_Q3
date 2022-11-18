@@ -434,5 +434,26 @@ input::-webkit-slider-thumb{
     font-size: 1.5rem;
     margin: 2.5rem auto;
   }
+}
+.results-page{
+  position: absolute;
+  /* top:37%; */
+  left: 20%;
+  margin: 0 auto;
+  width: 60%;
+  height: 63vh;
+  overflow: hidden;
+
+  font-family: "Caveat";
+  text-align: center;
+  font-size: 3rem;
   
+}
+.results-page,
+.win-message,
+.win-score{
+  display: inline;
+}
+body.active{
+  overflow: hidden;
 }

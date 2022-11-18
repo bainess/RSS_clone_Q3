@@ -476,6 +476,7 @@ function getRightSoundAnswer(e) {
     }
   }
 }
+
 document.getElementById("buttons-block").addEventListener('click', getRightSoundAnswer);
 
 function fillInfoBlock (e) {
@@ -542,6 +543,7 @@ function showScore() {
     scoreEl.textContent = '';
     scoreEl.textContent = score; 
   }
+  return score - warmUpScore;
 }
 // small player settings
 
@@ -554,12 +556,12 @@ playButtonSmall.addEventListener('click', () => {
 
 
 document.getElementById('seek-line-small').addEventListener('input', () => setPosition(positionSmall, soundSmall))
-document.getElementById('buttons-block').addEventListener('click', (e) => {fillInfoBlock(e), showScore()});
+document.getElementById('buttons-block').addEventListener('click', (e) => {fillInfoBlock(e), showScore(), showWinScore ()});
 
 // move to next question
 function startNextQuestion() {
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
-  if (rightAnswer && currQuesPoolNum <=5) {
+  if (rightAnswer && currQuesPoolNum <=4) {
   rightAnswer = false;
   questionTypes[currQuesPoolNum].classList.remove('active');
   questionTypes[currQuesPoolNum+1].classList.add('active');
@@ -577,5 +579,13 @@ function startNextQuestion() {
  }
 }
 nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), randomIntFromInterval(),
-   fillAnswerButtonsWithOptions(),getQuestion(), setPlayerSettings(), toggleClass(playIcon)
+   fillAnswerButtonsWithOptions(),getQuestion(), setPlayerSettings(), toggleClass(playIcon);
  } )
+
+ function showWinScore () {
+  if(rightAnswer && currQuesPoolNum === 5){
+    let score = document.getElementById('score-counter').innerText;
+  let resultScore = document.getElementsByClassName('win-score')[0];
+  resultScore.textContent = score;
+  }
+ }
