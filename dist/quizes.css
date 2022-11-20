@@ -487,6 +487,9 @@ input::-webkit-slider-thumb{
 .win-play-offer{
   font-family: "Caveat";
 }
+.win-play-offer.hidden{
+  display: none;
+}
 /* body.active{
   overflow: hidden;
 } */

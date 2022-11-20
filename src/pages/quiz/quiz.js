@@ -344,7 +344,9 @@ fillAnswerButtonsWithOptions();
 function getQuestion (){
   let currentBirdArray = birdsData[currQuesPoolNum];
   let randomQuestion = randomIntFromInterval(0, 5);
+  
   return currQues = currentBirdArray[randomQuestion];
+  
 }
 getQuestion ()
 
@@ -537,6 +539,7 @@ function getScore () {
 }
 
 function showScore() {
+  let rightAnswer =  getRightAnswerFlag ();
   if (rightAnswer) {
     rightAnswer = false;
     let scoreEl = document.getElementById('score-counter');
@@ -561,13 +564,7 @@ document.getElementById('buttons-block').addEventListener('click', (e) => {fillI
 
 // move to next question
 function makeNtxLvlBtnActive () {
-  let answerIndicators = Array.from(document.getElementsByClassName('round'));
-  let rightAnswer; 
-  answerIndicators.forEach((el) => {
-    if (el.classList.contains('right')) {
-      rightAnswer = true;
-    }
-  })
+  let rightAnswer =  getRightAnswerFlag (); 
   if (rightAnswer){
     nextLvlBtn.classList.add('active');
     nextLvlBtn.disabled = false;
@@ -576,15 +573,14 @@ function makeNtxLvlBtnActive () {
     nextLvlBtn.disabled = true;
   }
 }
-
+function getRightAnswerFlag () {
+   let answerIndicators = Array.from(document.getElementsByClassName('round'));
+   return answerIndicators.some((el) => (el.classList.contains('right')));
+}
 function startNextQuestion() {
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
-  let rightAnswer; 
-  answerIndicators.forEach((el) => {
-    if (el.classList.contains('right')) {
-      rightAnswer = true;
-    }
-  })
+  let rightAnswer =  getRightAnswerFlag (); 
+  
   if (rightAnswer && currQuesPoolNum <=4) {
   rightAnswer = false;
   questionTypes[currQuesPoolNum].classList.remove('active');
@@ -608,18 +604,19 @@ nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), 
 
  function showWinScore () {
   const resultsPage = document.getElementsByClassName('results-page')[0];
-  const body = document.getElementsByTagName('body')[0];
+  let winBtn = document.getElementsByClassName('win-play-offer')[0];
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
-  let rightAnswer; 
-  answerIndicators.forEach((el) => {
-    if (el.classList.contains('right')) {
-      rightAnswer = true;
-    }
-  })
+  let rightAnswer = answerIndicators.some((el) => (el.classList.contains('right')));
   if(rightAnswer && currQuesPoolNum === 5){
     let score = document.getElementById('score-counter').innerText;
   let resultScore = document.getElementsByClassName('win-score')[0];
   resultScore.textContent = score;
+  if (score === '30') {
+    winBtn.classList.add('hidden');
+    let winNotice = document.createElement('p')
+    winNotice.textContent = "Вы набрали максимальное количество очков!"
+    resultsPage.append(winNotice)
+  }
   resultsPage.classList.add('active');
   document.getElementById('question-block').classList.add('hidden');
   document.getElementsByClassName('info-block')[0].classList.add('hidden');
