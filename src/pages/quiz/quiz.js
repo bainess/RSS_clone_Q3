@@ -607,6 +607,8 @@ nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), 
  } )
 
  function showWinScore () {
+  const resultsPage = document.getElementsByClassName('results-page')[0];
+  const body = document.getElementsByTagName('body')[0];
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
   let rightAnswer; 
   answerIndicators.forEach((el) => {
@@ -618,5 +620,34 @@ nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), 
     let score = document.getElementById('score-counter').innerText;
   let resultScore = document.getElementsByClassName('win-score')[0];
   resultScore.textContent = score;
+  resultsPage.classList.add('active');
+  document.getElementById('question-block').classList.add('hidden');
+  document.getElementsByClassName('info-block')[0].classList.add('hidden');
+  document.getElementById('next-level-btn').classList.add('hidden');
   }
  }
+
+ function startNewGame () {
+  document.getElementsByClassName('results-page')[0].classList.remove('active');
+  currQuesPoolNum = 0;
+  currQues =  getQuestion ();
+  document.getElementById('question-block').classList.remove('hidden');
+  document.getElementsByClassName('info-block')[0].classList.remove('hidden');
+  document.getElementById('next-level-btn').classList.remove('hidden');
+  document.getElementById('score-counter').textContent = '0';
+  removeInfo ();
+  setPlayerSettings();
+  toggleClass(playIcon);
+  makeNtxLvlBtnActive ();
+  document.getElementsByClassName('question-type')[5].classList.remove('active');
+  document.getElementsByClassName('question-type')[0].classList.add('active')
+  Array.from(document.getElementsByClassName('round')).forEach((el) => {
+    if (el.classList.contains('right')){
+      el.classList.remove('right')
+    } else if (el.classList.contains('wrong')) {
+      el.classList.remove('wrong');
+    }
+  });
+  fillAnswerButtonsWithOptions();
+}
+document.getElementsByClassName('win-play-offer')[0].addEventListener('click', startNewGame)
