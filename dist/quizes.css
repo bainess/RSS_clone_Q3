@@ -428,6 +428,10 @@ input::-webkit-slider-thumb{
   margin-bottom: 2rem;
   font-family: "Marhey";
   padding: 10px 45px;
+  background-color: rgb(151, 117, 170);
+}
+#next-level-btn.active{
+  background-color: rgb(170, 85, 133);
 }
 @media screen and (max-width: 740px){
   #next-level-btn{

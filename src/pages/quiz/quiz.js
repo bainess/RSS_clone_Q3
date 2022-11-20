@@ -557,9 +557,26 @@ playButtonSmall.addEventListener('click', () => {
 
 
 document.getElementById('seek-line-small').addEventListener('input', () => setPosition(positionSmall, soundSmall))
-document.getElementById('buttons-block').addEventListener('click', (e) => {fillInfoBlock(e), showScore(), showWinScore ()});
+document.getElementById('buttons-block').addEventListener('click', (e) => {fillInfoBlock(e), showScore(), showWinScore (),  makeNtxLvlBtnActive ()});
 
 // move to next question
+function makeNtxLvlBtnActive () {
+  let answerIndicators = Array.from(document.getElementsByClassName('round'));
+  let rightAnswer; 
+  answerIndicators.forEach((el) => {
+    if (el.classList.contains('right')) {
+      rightAnswer = true;
+    }
+  })
+  if (rightAnswer){
+    nextLvlBtn.classList.add('active');
+    nextLvlBtn.disabled = false;
+  } else {
+    nextLvlBtn.classList.remove('active');
+    nextLvlBtn.disabled = true;
+  }
+}
+
 function startNextQuestion() {
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
   let rightAnswer; 
@@ -586,10 +603,17 @@ function startNextQuestion() {
  }
 }
 nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), randomIntFromInterval(),
-   fillAnswerButtonsWithOptions(),getQuestion(), setPlayerSettings(), toggleClass(playIcon);
+   fillAnswerButtonsWithOptions(),getQuestion(), setPlayerSettings(), toggleClass(playIcon), makeNtxLvlBtnActive ();
  } )
 
  function showWinScore () {
+  let answerIndicators = Array.from(document.getElementsByClassName('round'));
+  let rightAnswer; 
+  answerIndicators.forEach((el) => {
+    if (el.classList.contains('right')) {
+      rightAnswer = true;
+    }
+  })
   if(rightAnswer && currQuesPoolNum === 5){
     let score = document.getElementById('score-counter').innerText;
   let resultScore = document.getElementsByClassName('win-score')[0];
