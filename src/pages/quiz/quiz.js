@@ -538,12 +538,13 @@ function getScore () {
 
 function showScore() {
   if (rightAnswer) {
+    rightAnswer = false;
     let scoreEl = document.getElementById('score-counter');
     let score = getScore();
     scoreEl.textContent = '';
     scoreEl.textContent = score; 
+    return score;
   }
-  return score - warmUpScore;
 }
 // small player settings
 
@@ -561,6 +562,12 @@ document.getElementById('buttons-block').addEventListener('click', (e) => {fillI
 // move to next question
 function startNextQuestion() {
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
+  let rightAnswer; 
+  answerIndicators.forEach((el) => {
+    if (el.classList.contains('right')) {
+      rightAnswer = true;
+    }
+  })
   if (rightAnswer && currQuesPoolNum <=4) {
   rightAnswer = false;
   questionTypes[currQuesPoolNum].classList.remove('active');
