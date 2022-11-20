@@ -457,8 +457,9 @@ setPlayerSettings();
 let rightAnswer = false;
 
 function getRightSoundAnswer(e) {
-  let flag = false;
-  if(!flag && !rightAnswer) {
+  const indicatorsArr = Array.from(document.getElementsByClassName('round'));
+  let rightAnswer = indicatorsArr.some((el) => (el.classList.contains('right')));
+  if(!rightAnswer) {
     e.target.closest('button').classList.add('active')
     let answerIndicatior = e.target.closest('button').getElementsByClassName('round')[0];
     if(e.target.closest('button').id == currQues.id){
@@ -468,7 +469,6 @@ function getRightSoundAnswer(e) {
       const winsound = new Audio(winSoundMp3);
       winsound.play()
       sound.pause();
-      flag = true;
     } else {
       answerIndicatior.classList.add('wrong');
       const failSound = new Audio(failSoundMp3);
