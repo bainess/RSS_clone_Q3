@@ -365,7 +365,7 @@ getQuestion ()
 // player settings
 let soundSource ;
 let sound;
-let muted = true;
+let muted = false;
 let volume = 1;
 
 function setPlayerSettings() {
@@ -421,18 +421,18 @@ setPlayerSettings();
   document.getElementById('seek-line').addEventListener('input', () =>  setPosition(position, sound))
 
 
-// function mute(s) {
-//   if (muted) {
-//     s.volume = volume;
-//     muted = false;
-//   } else {
-//     s.volume = 0;
-//     muted = true;
-//   }
-// }
-//   document.getElementById('mute').addEventListener('click', mute(sound));
-  
+function mute(s) {
+  if (muted) {
+    s.volume = volume;
+    muted = false;
+  } else {
+    s.volume = 0;
+    muted = true;
+  }
+}
 
+document.getElementById('mute').addEventListener('click', () => mute(sound))
+document.getElementById('mute-small').addEventListener('click', () => mute(soundSmall))
 //  volume = document.getElementById('volume').volume;
 //  console.log(volume)
 // function setVolume(vol, s) {
