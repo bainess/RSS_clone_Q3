@@ -392,11 +392,11 @@ setPlayerSettings();
       if(toPauseSound && toPauseSound.played && toPauseSound.played.length) {
         toPauseSound.pause()
       }
-      try{
-        toPlaySound.play()
-      }catch (e){
-        console.error(e.message);
-      }
+      // try{
+        // toPlaySound.play() 
+      // }catch (e){
+        // console.error(e.message);
+      // }
     }
   }
 
@@ -433,14 +433,15 @@ function mute(s) {
 
 document.getElementById('mute').addEventListener('click', () => mute(sound))
 document.getElementById('mute-small').addEventListener('click', () => mute(soundSmall))
-//  volume = document.getElementById('volume').volume;
+
+//  volume = document.getElementById('volume');
 //  console.log(volume)
-// function setVolume(vol, s) {
+// function setVolume(vol,s) {
 //   s.volume = vol;
 //   volume = vol;
 // }
 // // document.getElementById('mute-small').addEventListener('click', mute(soundSmall));
-// document.getElementById('volume').addEveventListener('input', setVolume(volume, sound));
+// document.getElementById('volume').addEveventListener("input", () => setVolume(e.target, sound));
 // document.getElementById('volumeSmall').addEveventListener('input', setVolume(volume, soundSmall));
 
   sound.addEventListener('timeupdate', function() {
@@ -648,3 +649,86 @@ nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), 
   fillAnswerButtonsWithOptions();
 }
 document.getElementsByClassName('win-play-offer')[0].addEventListener('click', startNewGame)
+// gallery code
+
+function createGallery () {
+  const galleryPopup = document.createElement('section');
+  const body = document.getElementsByTagName('body')[0];
+  const galleryHeading = document.createElement('h3');
+  const closePopup = document.createElement('div');
+  
+  galleryPopup.classList.add('gallery-popup')
+  galleryHeading.classList.add('gallery-heading');
+  closePopup.classList.add('close-popup')
+
+  galleryHeading.textContent = 'Bird Gallery';
+
+  body.append(galleryPopup);
+  galleryPopup.append(galleryHeading);
+  galleryPopup.append(closePopup);
+  
+  createGalleryAsideMenu ();
+}
+
+function createGalleryAsideMenu () {
+  const galleryFrame = document.createElement('div');
+  const asideMenu = document.createElement('aside');
+  const galleryPopup = document.getElementsByClassName('gallery-popup')[0]; 
+  galleryFrame.classList.add('gallery-frame');
+  asideMenu.classList.add('aside-menu');
+  galleryPopup.append(galleryFrame);
+  galleryFrame.append(asideMenu);
+  const birdsDataAll = birdsData.flat(2);
+ 
+  const birdsCollection = birdsDataAll.splice(6);
+  birdsCollection.forEach((el, idx) => {
+    const navBtn = document.createElement('button');
+    navBtn.classList.add('gallery-nav-btn');
+    navBtn.textContent = birdsCollection[idx].name;
+    asideMenu.append(navBtn);
+  })
+}
+
+function createGalleryDisplay () {
+  const galleryDisplay = document.getElementsByClassName('gallery-frame')[0];
+  const photo = document.createElement('img');
+  const mainHeading = document.createElement('h2')
+  const latinHeading = document.createElement('h3');
+  const playerFrame = document.createElement('div');
+  const description = document.createElement('article');
+  
+  photo.classList.add('bird-photo-gal');
+  mainHeading.classList.add('main-heading-gal');
+  latinHeading.classList.add('latin-heading-gal');
+  playerFrame.classList.add('audio-player__container');
+  description.classList.add('bird-info-gal');
+  
+  galleryDisplay.append(photo);
+  galleryDisplay.append(mainHeading);
+  galleryDisplay.append(latinHeading);
+  galleryDisplay.append(playerFrame);
+  galleryDisplay.append(description)
+
+  
+}
+createGallery ();
+
+function showGalleryItems (e) {
+  const photo = document.getElementsByClassName('bird-photo-gal')[0];
+  const mainHeading = document.getElementsByClassName('main-heading-gal')[0];
+  const latinHeading = document.getElementsByClassName('latin-heading-gal')[0];
+  const player = document.getElementsByClassName('audio-player__container')[0];
+  const description = document.getElementsByClassName('bird-info-gal')[0];
+  
+  const birdsDataAll = birdsData.flat(2);
+  const birdsCollection = birdsDataAll.splice(6);
+  birdsCollection.forEach((el) => {
+    if (e.target.textContent === el.name) {
+      photo.src = el.image;
+      mainHeading.textContent = el.name;
+      latinHeading.textContent = el.species;
+      description.textContent = el.description;
+    }
+  })
+}
+document.getElementsByClassName('aside-menu')[0].addEventListener('click', (e) => { createGalleryDisplay (), showGalleryItems (e)})

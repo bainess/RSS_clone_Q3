@@ -54,6 +54,133 @@ header>a{
     font-size: 4rem;
   }
 }
+.gallery {
+  margin-top: 1.5rem;
+  font-size: 3rem;
+}
+.gallery-popup{
+  width: 70vw;
+  height: 80vh;
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  background-color: #764B8E;
+}
+@media screen and (max-width: 960px){
+  .gallery-popup{
+    height: 65vh;
+  }
+}
+.gallery-heading{
+  margin-top: 1rem;
+  font-family: "GreatVibes";
+  font-size: 3rem;
+  text-align: center;
+}
+.close-popup{
+  width: 30px;
+  height: 2px;
+  background-color: #000000;
+  position: absolute;
+  right: 3%;
+  top: 3%;
+  transform: rotate(45deg);
+}
+.close-popup::before{
+  content:"";
+  width: 30px;
+  height: 2px;
+  background-color: #000000;
+  position: absolute;
+  right: 3%;
+  top: 3%;
+  transform: rotate(90deg);
+}
+.gallery-frame {
+  width: 100%;
+  height: 73.5vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+.aside-menu{
+  width: 25%;
+  height: 95%;
+  background-color: #9775AA;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+@media screen and (max-width: 690px){
+  .aside-menu{
+    margin-top: 1rem;
+    width: 100%;
+    height: 10%;
+    flex-direction: row;
+    overflow: scroll;
+  }
+}
+.gallery-nav-btn{
+  width: 80%;
+  font-family: "Caveat";
+  margin: 0.5rem auto;
+  font-size: 2rem;
+}
+@media screen and (max-width: 960px){
+  .gallery-nav-btn{
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 690px){
+  .gallery-nav-btn{
+    font-size: 2rem;
+    width: 40%;
+    margin: 1rem 0.5rem;
+  }
+}
+.gallery-nav-btn:hover{
+  background-color: #661141;
+}
+.gallery-nav-btn:active{
+  background-color: #440026;
+}
+.gallery-frame{
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 690px){
+  .gallery-frame{
+    flex-wrap: wrap;
+  }
+}
+.bird-photo-gal{
+  margin: 3rem;
+  width: 15vw;
+  height: 15vw;
+}
+.main-heading-gal{
+  margin-left: 3rem;
+  font-family: "Marck";
+  font-size: 3rem;
+}
+.latin-heading-gal{
+  margin: 1rem 3rem;
+  font-family: "Caveat";
+  font-size: 1.5rem;
+}
+.bird-info-gal{
+  font-family: "Marck";
+  font-size: 2rem;
+  margin: 1rem 3rem;
+  width: 70%;
+}
+@media screen and (max-width: 960px){
+  .bird-info-gal{
+    width: 60%;
+  }
+}
+/* .gallery-nav-btn:nth-child(4){
+  font-size: 3.5rem;
+} */
 .score-display{
   margin: 3rem 5rem 0 0 ;
   font-family: "Marck";
