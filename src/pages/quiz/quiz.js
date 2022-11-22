@@ -656,16 +656,19 @@ function createGallery () {
   const body = document.getElementsByTagName('body')[0];
   const galleryHeading = document.createElement('h3');
   const closePopup = document.createElement('div');
+  const closeFrame = document.createElement('div');
   
   galleryPopup.classList.add('gallery-popup')
   galleryHeading.classList.add('gallery-heading');
-  closePopup.classList.add('close-popup')
+  closeFrame.classList.add('close-popup-frame');
+  closePopup.classList.add('close-popup');
 
   galleryHeading.textContent = 'Bird Gallery';
 
   body.append(galleryPopup);
   galleryPopup.append(galleryHeading);
-  galleryPopup.append(closePopup);
+  galleryPopup.append(closeFrame);
+  closeFrame.append(closePopup);
   
   createGalleryAsideMenu ();
 }
@@ -731,4 +734,11 @@ function showGalleryItems (e) {
     }
   })
 }
+function showGallery () {
+  const galleryBtn = document.getElementsByClassName('gallery-popup')[0];
+  galleryBtn.classList.toggle('show');
+}
+
+document.getElementsByClassName('gallery')[0].addEventListener('click', showGallery);
+document.getElementsByClassName('close-popup-frame')[0].addEventListener('click', showGallery)
 document.getElementsByClassName('aside-menu')[0].addEventListener('click', (e) => { createGalleryDisplay (), showGalleryItems (e)})
