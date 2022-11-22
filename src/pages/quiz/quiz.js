@@ -5,7 +5,6 @@ import failSoundMp3 from './assets/sounds/fail.mp3';
 import winSoundMp3 from './assets/sounds/win.wav';
 import scrSaverPic from './assets/svg/question_mark.svg'
 
-console.log("scrSaverPic", scrSaverPic)
 let currQuesPoolNum = '';
 let currQues;
 
@@ -345,7 +344,9 @@ fillAnswerButtonsWithOptions();
 function getQuestion (){
   let currentBirdArray = birdsData[currQuesPoolNum];
   let randomQuestion = randomIntFromInterval(0, 5);
+  
   return currQues = currentBirdArray[randomQuestion];
+  
 }
 getQuestion ()
 
@@ -364,7 +365,7 @@ getQuestion ()
 // player settings
 let soundSource ;
 let sound;
-let muted = true;
+let muted = false;
 let volume = 1;
 
 function setPlayerSettings() {
@@ -372,12 +373,10 @@ function setPlayerSettings() {
   sound = new Audio(soundSource);
   sound.type='audio/mpeg';
 }
-  setPlayerSettings();
+setPlayerSettings();
 
   // player1 or player2
   function playPause(s) {
-    console.log(sound.played, sound.paused)
-    // console.log(soundSmall.played)
     let toPlaySound;
     let toPauseSound;
     if(s === sound) {
@@ -393,37 +392,57 @@ function setPlayerSettings() {
       if(toPauseSound && toPauseSound.played && toPauseSound.played.length) {
         toPauseSound.pause()
       }
-      toPlaySound.play()
+      // try{
+        // toPlaySound.play() 
+      // }catch (e){
+        // console.error(e.message);
+      // }
     }
   }
 
   const playButton = document.getElementsByClassName('controls-btn')[0];
-  
+  const playIcon = document.getElementById('play-icon');
+  let listToggle = 0;
+  const classes = ['pause', 'play'];
+
+  function toggleClass (icon) {
+    icon.classList = classes[listToggle++ % classes.length];
+  }
   playButton.addEventListener('click', () => {
     playPause(sound);
     toggleClass(playIcon)
   });
-  
-  function setPosition (){
-    sound.currentTime = position;
-  }
+  let position = document.getElementById('seek-line').value;
+  let positionSmall =  document.getElementById('seek-line-small').value;
 
-  function mute() {
-    if (muted) {
-      sound.volume = volume;
-      muted = false;
-    } else {
-      sound.volume = 0;
-      muted = true;
-    }
+  function setPosition (pos, s){
+    s.currentTime = pos;
   }
-  document.getElementById('mute').addEventListener('click', mute);
-  document.getElementById('mute-small').addEventListener('click', mute);
-  function setVolume(vol) {
-    sound.volume = vol;
-    volume = vol;
+  document.getElementById('seek-line').addEventListener('input', () =>  setPosition(position, sound))
+
+
+function mute(s) {
+  if (muted) {
+    s.volume = volume;
+    muted = false;
+  } else {
+    s.volume = 0;
+    muted = true;
   }
-  setVolume(volume);
+}
+
+document.getElementById('mute').addEventListener('click', () => mute(sound))
+document.getElementById('mute-small').addEventListener('click', () => mute(soundSmall))
+
+//  volume = document.getElementById('volume');
+//  console.log(volume)
+// function setVolume(vol,s) {
+//   s.volume = vol;
+//   volume = vol;
+// }
+// // document.getElementById('mute-small').addEventListener('click', mute(soundSmall));
+// document.getElementById('volume').addEveventListener("input", () => setVolume(e.target, sound));
+// document.getElementById('volumeSmall').addEveventListener('input', setVolume(volume, soundSmall));
 
   sound.addEventListener('timeupdate', function() {
     let currTime = parseInt(sound.currentTime, 10);
@@ -433,15 +452,7 @@ function setPlayerSettings() {
 
 
 
-  let listToggle = 0;
-  const classes = [ 'pause', 'play'];
 
-
-const playIcon = document.getElementById('play-icon');
-
-  let toggleClass = (icon) => {
-    icon.classList = classes[listToggle++ % classes.length];
-  }
 
   // work with game
 
@@ -449,8 +460,9 @@ const playIcon = document.getElementById('play-icon');
 let rightAnswer = false;
 
 function getRightSoundAnswer(e) {
-  let flag = false;
-  if(!flag && !rightAnswer) {
+  const indicatorsArr = Array.from(document.getElementsByClassName('round'));
+  let rightAnswer = indicatorsArr.some((el) => (el.classList.contains('right')));
+  if(!rightAnswer) {
     e.target.closest('button').classList.add('active')
     let answerIndicatior = e.target.closest('button').getElementsByClassName('round')[0];
     if(e.target.closest('button').id == currQues.id){
@@ -460,18 +472,16 @@ function getRightSoundAnswer(e) {
       const winsound = new Audio(winSoundMp3);
       winsound.play()
       sound.pause();
-      flag = true;
     } else {
-      console.log(answerIndicatior)
       answerIndicatior.classList.add('wrong');
       const failSound = new Audio(failSoundMp3);
       failSound.play()
     }
   }
 }
+
 document.getElementById("buttons-block").addEventListener('click', getRightSoundAnswer);
 
-  //complete info section
 function fillInfoBlock (e) {
   let task= document.getElementsByClassName('task')[0];
   const infoBlock = document.getElementsByClassName('info-block')[0];
@@ -496,6 +506,11 @@ function fillInfoBlock (e) {
     soundSmall.pause();
   }
   soundSmall= new Audio(soundSourceSmall);
+  soundSmall.addEventListener('timeupdate', function() {
+    let currTime = parseInt(soundSmall.currentTime, 10);
+    document.getElementById('seek-line-small').max = soundSmall.duration;
+    document.getElementById('seek-line-small').value = currTime;
+  })
 }
 
 function removeInfo () {
@@ -512,25 +527,62 @@ function removeInfo () {
   screensaver.src = scrSaverPic;
   player.classList.add('hidden')
 }
+
+// let score = 0;
+
+// scoreCounter.textContent = score;
+function getScore () {
+  let currScore = document.getElementById('score-counter').textContent;
+  let attempsCounter;
+  const indicatorsArr = Array.from(document.getElementsByClassName('round'));
+  attempsCounter = indicatorsArr.reduce((score, el) => (el.classList.contains('wrong')) ? (score + 1) : (score + 0),0)
+  return +currScore + 5 - attempsCounter;
+}
+
+function showScore() {
+  let rightAnswer =  getRightAnswerFlag ();
+  if (rightAnswer) {
+    rightAnswer = false;
+    let scoreEl = document.getElementById('score-counter');
+    let score = getScore();
+    scoreEl.textContent = '';
+    scoreEl.textContent = score; 
+    return score;
+  }
+}
 // small player settings
 
 const playButtonSmall = document.getElementById('play-btn-small');
 const playIconSmall = document.getElementById('play-icon-small');
 playButtonSmall.addEventListener('click', () => {
   playPause(soundSmall);
-  toggleClass(playIconSmall)
+  toggleClass(playIconSmall);
 });
-sound.addEventListener('timeupdate', function() {
-  let currTime = parseInt(sound.currentTime, 10);
-  document.getElementById('seek-line-small').max = sound.duration;
-  document.getElementById('seek-line-small').value = currTime;
-} )
-document.getElementById('buttons-block').addEventListener('click', fillInfoBlock);
+
+
+document.getElementById('seek-line-small').addEventListener('input', () => setPosition(positionSmall, soundSmall))
+document.getElementById('buttons-block').addEventListener('click', (e) => {fillInfoBlock(e), showScore(), showWinScore (),  makeNtxLvlBtnActive ()});
 
 // move to next question
+function makeNtxLvlBtnActive () {
+  let rightAnswer =  getRightAnswerFlag (); 
+  if (rightAnswer){
+    nextLvlBtn.classList.add('active');
+    nextLvlBtn.disabled = false;
+  } else {
+    nextLvlBtn.classList.remove('active');
+    nextLvlBtn.disabled = true;
+  }
+}
+function getRightAnswerFlag () {
+   let answerIndicators = Array.from(document.getElementsByClassName('round'));
+   return answerIndicators.some((el) => (el.classList.contains('right')));
+}
 function startNextQuestion() {
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
- if (rightAnswer && currQuesPoolNum <=5) {
+  let rightAnswer =  getRightAnswerFlag (); 
+  
+  if (rightAnswer && currQuesPoolNum <=4) {
   rightAnswer = false;
   questionTypes[currQuesPoolNum].classList.remove('active');
   questionTypes[currQuesPoolNum+1].classList.add('active');
@@ -548,5 +600,145 @@ function startNextQuestion() {
  }
 }
 nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), randomIntFromInterval(),
-   fillAnswerButtonsWithOptions(),getQuestion(), setPlayerSettings(), toggleClass(playIcon)
+   fillAnswerButtonsWithOptions(),getQuestion(), setPlayerSettings(), toggleClass(playIcon), makeNtxLvlBtnActive ();
  } )
+
+ function showWinScore () {
+  const resultsPage = document.getElementsByClassName('results-page')[0];
+  let winBtn = document.getElementsByClassName('win-play-offer')[0];
+  let answerIndicators = Array.from(document.getElementsByClassName('round'));
+  let rightAnswer = answerIndicators.some((el) => (el.classList.contains('right')));
+  if(rightAnswer && currQuesPoolNum === 5){
+    let score = document.getElementById('score-counter').innerText;
+  let resultScore = document.getElementsByClassName('win-score')[0];
+  resultScore.textContent = score;
+  if (score === '30') {
+    winBtn.classList.add('hidden');
+    let winNotice = document.createElement('p')
+    winNotice.textContent = "Вы набрали максимальное количество очков!"
+    resultsPage.append(winNotice)
+  }
+  resultsPage.classList.add('active');
+  document.getElementById('question-block').classList.add('hidden');
+  document.getElementsByClassName('info-block')[0].classList.add('hidden');
+  document.getElementById('next-level-btn').classList.add('hidden');
+  }
+ }
+
+ function startNewGame () {
+  document.getElementsByClassName('results-page')[0].classList.remove('active');
+  currQuesPoolNum = 0;
+  currQues =  getQuestion ();
+  document.getElementById('question-block').classList.remove('hidden');
+  document.getElementsByClassName('info-block')[0].classList.remove('hidden');
+  document.getElementById('next-level-btn').classList.remove('hidden');
+  document.getElementById('score-counter').textContent = '0';
+  removeInfo ();
+  setPlayerSettings();
+  toggleClass(playIcon);
+  makeNtxLvlBtnActive ();
+  document.getElementsByClassName('question-type')[5].classList.remove('active');
+  document.getElementsByClassName('question-type')[0].classList.add('active')
+  Array.from(document.getElementsByClassName('round')).forEach((el) => {
+    if (el.classList.contains('right')){
+      el.classList.remove('right')
+    } else if (el.classList.contains('wrong')) {
+      el.classList.remove('wrong');
+    }
+  });
+  fillAnswerButtonsWithOptions();
+}
+document.getElementsByClassName('win-play-offer')[0].addEventListener('click', startNewGame)
+// gallery code
+
+function createGallery () {
+  const galleryPopup = document.createElement('section');
+  const body = document.getElementsByTagName('body')[0];
+  const galleryHeading = document.createElement('h3');
+  const closePopup = document.createElement('div');
+  const closeFrame = document.createElement('div');
+  
+  galleryPopup.classList.add('gallery-popup')
+  galleryHeading.classList.add('gallery-heading');
+  closeFrame.classList.add('close-popup-frame');
+  closePopup.classList.add('close-popup');
+
+  galleryHeading.textContent = 'Bird Gallery';
+
+  body.append(galleryPopup);
+  galleryPopup.append(galleryHeading);
+  galleryPopup.append(closeFrame);
+  closeFrame.append(closePopup);
+  
+  createGalleryAsideMenu ();
+}
+
+function createGalleryAsideMenu () {
+  const galleryFrame = document.createElement('div');
+  const asideMenu = document.createElement('aside');
+  const galleryPopup = document.getElementsByClassName('gallery-popup')[0]; 
+  galleryFrame.classList.add('gallery-frame');
+  asideMenu.classList.add('aside-menu');
+  galleryPopup.append(galleryFrame);
+  galleryFrame.append(asideMenu);
+  const birdsDataAll = birdsData.flat(2);
+ 
+  const birdsCollection = birdsDataAll.splice(6);
+  birdsCollection.forEach((el, idx) => {
+    const navBtn = document.createElement('button');
+    navBtn.classList.add('gallery-nav-btn');
+    navBtn.textContent = birdsCollection[idx].name;
+    asideMenu.append(navBtn);
+  })
+}
+
+function createGalleryDisplay () {
+  const galleryDisplay = document.getElementsByClassName('gallery-frame')[0];
+  const photo = document.createElement('img');
+  const mainHeading = document.createElement('h2')
+  const latinHeading = document.createElement('h3');
+  const playerFrame = document.createElement('div');
+  const description = document.createElement('article');
+  
+  photo.classList.add('bird-photo-gal');
+  mainHeading.classList.add('main-heading-gal');
+  latinHeading.classList.add('latin-heading-gal');
+  playerFrame.classList.add('audio-player__container');
+  description.classList.add('bird-info-gal');
+  
+  galleryDisplay.append(photo);
+  galleryDisplay.append(mainHeading);
+  galleryDisplay.append(latinHeading);
+  galleryDisplay.append(playerFrame);
+  galleryDisplay.append(description)
+
+  
+}
+createGallery ();
+
+function showGalleryItems (e) {
+  const photo = document.getElementsByClassName('bird-photo-gal')[0];
+  const mainHeading = document.getElementsByClassName('main-heading-gal')[0];
+  const latinHeading = document.getElementsByClassName('latin-heading-gal')[0];
+  const player = document.getElementsByClassName('audio-player__container')[0];
+  const description = document.getElementsByClassName('bird-info-gal')[0];
+  
+  const birdsDataAll = birdsData.flat(2);
+  const birdsCollection = birdsDataAll.splice(6);
+  birdsCollection.forEach((el) => {
+    if (e.target.textContent === el.name) {
+      photo.src = el.image;
+      mainHeading.textContent = el.name;
+      latinHeading.textContent = el.species;
+      description.textContent = el.description;
+    }
+  })
+}
+function showGallery () {
+  const galleryBtn = document.getElementsByClassName('gallery-popup')[0];
+  galleryBtn.classList.toggle('show');
+}
+
+document.getElementsByClassName('gallery')[0].addEventListener('click', showGallery);
+document.getElementsByClassName('close-popup-frame')[0].addEventListener('click', showGallery)
+document.getElementsByClassName('aside-menu')[0].addEventListener('click', (e) => { createGalleryDisplay (), showGalleryItems (e)})
