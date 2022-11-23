@@ -62,7 +62,7 @@ body{
   
 }
 
-header{
+.main-header{
   margin: 2rem  0 0 0.5rem;
   display: flex;
   flex-direction: row;
@@ -79,7 +79,7 @@ h1{
   font-weight: normal;
 }
 @media screen and (max-width: 960px) {
-  h1{
+  .main-h1{
     font-size: 3rem;
   }
 }
