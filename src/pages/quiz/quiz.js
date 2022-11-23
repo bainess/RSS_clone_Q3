@@ -671,6 +671,8 @@ function createGallery () {
   closeFrame.append(closePopup);
   
   createGalleryAsideMenu ();
+  createGalleryDisplay ();
+  showAudioGallery ();
 }
 
 function createGalleryAsideMenu () {
@@ -693,26 +695,53 @@ function createGalleryAsideMenu () {
 }
 
 function createGalleryDisplay () {
-  const galleryDisplay = document.getElementsByClassName('gallery-frame')[0];
+  const galleryFrame = document.getElementsByClassName('gallery-frame')[0];
+  const galleryDisplay = document.createElement('article')
   const photo = document.createElement('img');
   const mainHeading = document.createElement('h2')
   const latinHeading = document.createElement('h3');
   const playerFrame = document.createElement('div');
-  const description = document.createElement('article');
+  const description = document.createElement('p');
   
+  galleryDisplay.classList.add('gallery-display');
   photo.classList.add('bird-photo-gal');
   mainHeading.classList.add('main-heading-gal');
   latinHeading.classList.add('latin-heading-gal');
-  playerFrame.classList.add('audio-player__container');
+  playerFrame.classList.add('audio-player__container-gal');
   description.classList.add('bird-info-gal');
   
+  galleryFrame.append(galleryDisplay);
   galleryDisplay.append(photo);
   galleryDisplay.append(mainHeading);
   galleryDisplay.append(latinHeading);
   galleryDisplay.append(playerFrame);
-  galleryDisplay.append(description)
-
+  galleryDisplay.append(description);
+}
+function showAudioGallery () {
+  const player = document.getElementsByClassName('audio-player__container-gal')[0];
   
+  const controls = document.createElement('div');
+  const controlBtn = document.createElement('button');
+  const playIcon = document.createElement('div');
+
+  const playbar = document.createElement('div');
+  const range = document.createElement('input');
+
+  controls.classList.add('play-controls');
+  controlBtn.classList.add('controls-btn');
+  playIcon.classList.add('play');
+  playbar.id = 'playbar';
+  controlBtn.id = 'play-gallery';
+  range.classList.add('seekline');
+  range.type = 'range';
+  range.value = 0;
+  range.max = '';
+
+  player.append(controls);
+  controls.append(controlBtn);
+  controlBtn.append(playIcon);
+  player.append(playbar);
+  playbar.append(range);
 }
 createGallery ();
 
@@ -720,9 +749,9 @@ function showGalleryItems (e) {
   const photo = document.getElementsByClassName('bird-photo-gal')[0];
   const mainHeading = document.getElementsByClassName('main-heading-gal')[0];
   const latinHeading = document.getElementsByClassName('latin-heading-gal')[0];
-  const player = document.getElementsByClassName('audio-player__container')[0];
   const description = document.getElementsByClassName('bird-info-gal')[0];
-  
+  // const controlsBtn = document.getElementsByClassName('controls-btn')[0];
+  let soundSource;
   const birdsDataAll = birdsData.flat(2);
   const birdsCollection = birdsDataAll.splice(6);
   birdsCollection.forEach((el) => {
@@ -731,17 +760,29 @@ function showGalleryItems (e) {
       mainHeading.textContent = el.name;
       latinHeading.textContent = el.species;
       description.textContent = el.description;
+      soundSource = el.audio;
     }
-  })
+  });
+  let sound = new Audio(soundSource);
+  document.getElementById('play-gallery').addEventListener('click', () => {
+  if (!sound.paused) {
+    sound.pause();
+  } else {
+    sound.play();
+  }
+  // toggleClass();
+});
 }
+
+
 function showGallery () {
   const galleryBtn = document.getElementsByClassName('gallery-popup')[0];
-  galleryBtn.classList.toggle('show');
+  galleryBtn.classList.add('show');
   document.getElementsByClassName('close-popup-frame')[0].addEventListener('click', (e) => {
-    galleryBtn.classList.toggle('show');
+    galleryBtn.classList.remove('show');
   })
 }
 
 document.getElementsByClassName('gallery')[0].addEventListener('click', showGallery);
 
-document.getElementsByClassName('aside-menu')[0].addEventListener('click', (e) => { createGalleryDisplay (), showGalleryItems (e)})
+document.getElementsByClassName('aside-menu')[0].addEventListener('click', (e) => { showGalleryItems (e)})
