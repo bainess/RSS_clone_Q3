@@ -5,15 +5,11 @@ function openBurgerMenu () {
   let burgerLines = Array.from(document.getElementsByClassName('burger-lines'))
   let menuBackground = document.getElementById('burger-background');
   let menuList = document.getElementById('navigation');
-  if (menuList.classList.contains('open')){
-    burgerLines.forEach((el, i) => el.classList.remove('open'));
-    menuBackground.classList.remove('open');
-    menuList.classList.remove('open');
-  } else {
-    burgerLines.forEach((el, i) => el.classList.add('open'));
-    menuBackground.classList.add('open');
-    menuList.classList.add('open');
-  }
-    
+  burgerMenu.addEventListener('click', (e) => {
+    burgerLines.forEach((el, i) => el.classList.toggle('open'));
+    menuBackground.classList.toggle('open');
+    menuList.classList.toggle('open');
+    console.log(e)
+  } )
 } 
-document.getElementById('burger-menu').addEventListener('click', openBurgerMenu);
+openBurgerMenu ();
