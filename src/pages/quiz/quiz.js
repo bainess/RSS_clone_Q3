@@ -393,7 +393,7 @@ setPlayerSettings();
         toPauseSound.pause()
       }
       // try{
-        // toPlaySound.play() 
+        toPlaySound.play();
       // }catch (e){
         // console.error(e.message);
       // }
@@ -737,8 +737,11 @@ function showGalleryItems (e) {
 function showGallery () {
   const galleryBtn = document.getElementsByClassName('gallery-popup')[0];
   galleryBtn.classList.toggle('show');
+  document.getElementsByClassName('close-popup-frame')[0].addEventListener('click', (e) => {
+    galleryBtn.classList.toggle('show');
+  })
 }
 
 document.getElementsByClassName('gallery')[0].addEventListener('click', showGallery);
-document.getElementsByClassName('close-popup-frame')[0].addEventListener('click', showGallery)
+
 document.getElementsByClassName('aside-menu')[0].addEventListener('click', (e) => { createGalleryDisplay (), showGalleryItems (e)})
