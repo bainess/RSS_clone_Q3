@@ -186,6 +186,7 @@ header>a{
 }
 .gallery-display{
   overflow: scroll;
+  height: 77%;
 }
 .bird-photo-gal{
   margin: 3rem 0rem 0 3rem ;
