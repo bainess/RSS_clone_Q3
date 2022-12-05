@@ -1,6 +1,4 @@
 'use strict';
-// const winSoundMp3 = require('./assets/sounds/win.wav');
-// const failSoundMp3 = require('./assets/sounds/fail.mp3');
 import failSoundMp3 from './assets/sounds/fail.mp3';
 import winSoundMp3 from './assets/sounds/win.wav';
 import scrSaverPic from './assets/svg/question_mark.svg'
@@ -350,18 +348,6 @@ function getQuestion (){
 }
 getQuestion ()
 
-  // for (let i = 0; i <= answerButtonsArray.length-1;i++){
-  //   for(let j= 0; j <= birdsData.length-1; j +=1){
-  //     questionPool = [i];
-  //     let currentBirdArray = birdsData[i][j];
-  //     let birdName = currentBirdArray.name;
-  //     answerButtonsArray[i].textContent = birdName;
-  //     }
-  //   }
-
-
-
-
 // player settings
 let soundSource ;
 let sound;
@@ -392,11 +378,7 @@ setPlayerSettings();
       if(toPauseSound && toPauseSound.played && toPauseSound.played.length) {
         toPauseSound.pause()
       }
-      // try{
         toPlaySound.play();
-      // }catch (e){
-        // console.error(e.message);
-      // }
     }
   }
 
@@ -528,8 +510,6 @@ function removeInfo () {
   player.classList.add('hidden')
 }
 
-// let score = 0;
-
 // scoreCounter.textContent = score;
 function getScore () {
   let currScore = document.getElementById('score-counter').textContent;
@@ -559,7 +539,6 @@ playButtonSmall.addEventListener('click', () => {
   toggleClass(playIconSmall);
 });
 
-
 document.getElementById('seek-line-small').addEventListener('input', () => setPosition(positionSmall, soundSmall))
 document.getElementById('buttons-block').addEventListener('click', (e) => {fillInfoBlock(e), showScore(), showWinScore (),  makeNtxLvlBtnActive ()});
 
@@ -574,36 +553,38 @@ function makeNtxLvlBtnActive () {
     nextLvlBtn.disabled = true;
   }
 }
+
 function getRightAnswerFlag () {
-   let answerIndicators = Array.from(document.getElementsByClassName('round'));
-   return answerIndicators.some((el) => (el.classList.contains('right')));
+  let answerIndicators = Array.from(document.getElementsByClassName('round'));
+  return answerIndicators.some((el) => (el.classList.contains('right')));
 }
+
 function startNextQuestion() {
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
   let rightAnswer =  getRightAnswerFlag (); 
-  
   if (rightAnswer && currQuesPoolNum <=4) {
-  rightAnswer = false;
-  questionTypes[currQuesPoolNum].classList.remove('active');
-  questionTypes[currQuesPoolNum+1].classList.add('active');
-  currQuesPoolNum += 1;
-  answerOptions.forEach((el) => {el.disabled = false})
-  answerIndicators.forEach((el) => {
-    if (el.classList.contains('active') ){
-      el.classList.remove('active')
-    } else if (el.classList.contains('right')) {
-      el.classList.remove('right')
-    } else if (el.classList.contains('wrong')) {
-      el.classList.remove('wrong');
-    }
-  });
- }
+    rightAnswer = false;
+    questionTypes[currQuesPoolNum].classList.remove('active');
+    questionTypes[currQuesPoolNum+1].classList.add('active');
+    currQuesPoolNum += 1;
+    answerOptions.forEach((el) => {el.disabled = false})
+    answerIndicators.forEach((el) => {
+      if (el.classList.contains('active') ){
+        el.classList.remove('active')
+      } else if (el.classList.contains('right')) {
+        el.classList.remove('right')
+      } else if (el.classList.contains('wrong')) {
+        el.classList.remove('wrong');
+      }
+    });
+  }
 }
-nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), randomIntFromInterval(),
-   fillAnswerButtonsWithOptions(),getQuestion(), setPlayerSettings(), toggleClass(playIcon), makeNtxLvlBtnActive ();
- } )
 
- function showWinScore () {
+nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), randomIntFromInterval(),
+  fillAnswerButtonsWithOptions(),getQuestion(), setPlayerSettings(), toggleClass(playIcon), makeNtxLvlBtnActive ();
+} )
+
+function showWinScore () {
   const resultsPage = document.getElementsByClassName('results-page')[0];
   let winBtn = document.getElementsByClassName('win-play-offer')[0];
   let answerIndicators = Array.from(document.getElementsByClassName('round'));
@@ -623,9 +604,9 @@ nextLvlBtn.addEventListener('click', (e) => {startNextQuestion(),removeInfo (), 
   document.getElementsByClassName('info-block')[0].classList.add('hidden');
   document.getElementById('next-level-btn').classList.add('hidden');
   }
- }
+}
 
- function startNewGame () {
+function startNewGame () {
   document.getElementsByClassName('results-page')[0].classList.remove('active');
   currQuesPoolNum = 0;
   currQues =  getQuestion ();
@@ -684,7 +665,7 @@ function createGalleryAsideMenu () {
   galleryPopup.append(galleryFrame);
   galleryFrame.append(asideMenu);
   const birdsDataAll = birdsData.flat(2);
- 
+
   const birdsCollection = birdsDataAll.splice(6);
   birdsCollection.forEach((el, idx) => {
     const navBtn = document.createElement('button');
@@ -717,6 +698,7 @@ function createGalleryDisplay () {
   galleryDisplay.append(playerFrame);
   galleryDisplay.append(description);
 }
+
 function showAudioGallery () {
   const player = document.getElementsByClassName('audio-player__container-gal')[0];
   
@@ -750,7 +732,6 @@ function showGalleryItems (e) {
   const mainHeading = document.getElementsByClassName('main-heading-gal')[0];
   const latinHeading = document.getElementsByClassName('latin-heading-gal')[0];
   const description = document.getElementsByClassName('bird-info-gal')[0];
-  // const controlsBtn = document.getElementsByClassName('controls-btn')[0];
   let soundSource;
   const birdsDataAll = birdsData.flat(2);
   const birdsCollection = birdsDataAll.splice(6);
@@ -770,7 +751,6 @@ function showGalleryItems (e) {
   } else {
     sound.play();
   }
-  // toggleClass();
 });
 }
 
